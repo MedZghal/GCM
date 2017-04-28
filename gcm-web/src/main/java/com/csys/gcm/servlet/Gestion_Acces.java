@@ -53,19 +53,63 @@ public class Gestion_Acces extends HttpServlet {
                 
                 switch (function) {
                     case "GetListUtilisateur":
-                        out.println(gson.toJson(WS.PortCltWS.getListUtilisateur()));
-                        break;
+                        {
+                            out.println(gson.toJson(WS.PortCltWS.getListUtilisateur()));
+                            break;
+                        }
+                    case "GetMaxUtilisateur":
+                        {
+                            out.println(gson.toJson(WS.PortCltWS.getMaxUtilisateur()));
+                            break;
+                        }
+                        case "GetMinUtilisateur":
+                        {
+                            out.println(gson.toJson(WS.PortCltWS.getMinUtilisateur()));
+                            break;
+                        }
                     case "GetDateServeur":
-                        out.println(gson.toJson(WS.PortCltWS.getDateServeur()));
-                        break;
+                        {
+                            out.println(gson.toJson(WS.PortCltWS.getDateServeur()));
+                            break;
+                        }
+                    case "GetListUtilisateurByMedecin":        
+                        {
+                            String secretaire_medecin=request.getParameter("secretaire_medecin");
+                            out.println(gson.toJson(WS.PortCltWS.getListUtilisateurByMedecin(secretaire_medecin)));
+                            break;
+                        }
                     case "GetParemetrebyCodeMedTrit":
-                        int codeMedTrit=Integer.parseInt(request.getParameter("codeMedTrit"));
-                        out.println(gson.toJson(WS.PortCltWS.getParemetrebyCodeMedTrit(codeMedTrit)));
-                        break;
+                        {
+                            int codeMedTrit=Integer.parseInt(request.getParameter("codeMedTrit"));
+                            out.println(gson.toJson(WS.PortCltWS.getParemetrebyCodeMedTrit(codeMedTrit)));
+                            break;
+                        }
                     default:
                         break;
                 }
-            }
+            }else
+                 if(type.equals("update")){
+                     switch (function) {
+                        case "SuppUtilisateur":
+                            {
+                                String username=request.getParameter("username");
+                                out.println(gson.toJson(WS.PortCltWS.suppUtilisateur(username)));
+                                break;
+                            }
+                             
+                        case "AjUtilisateur":
+                            {
+                                String username=request.getParameter("username");
+                                String pass=request.getParameter("pass");
+                                String type_util=request.getParameter("type_util");
+                                String secretaire=request.getParameter("secretaire");
+                                int code_Med_Trit=Integer.parseInt(request.getParameter("code_Med_Trit"));
+                                
+                                out.println(gson.toJson(WS.PortCltWS.ajUtilisateur(username, pass, type_util, code_Med_Trit, secretaire)));
+                                break;
+                            }
+                         }
+                    }
          }
     }
 

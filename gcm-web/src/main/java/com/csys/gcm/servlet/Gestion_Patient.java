@@ -92,6 +92,12 @@ public class Gestion_Patient extends HttpServlet {
                         out.println(gson.toJson(WS.PortCltWS.getListPatientByMedecin(code_Med_Trit)));
                         break;
                     }
+                    case "GetListSallebyCodeMedTrit":
+                    {
+                        int code_Med_Trit=Integer.parseInt(request.getParameter("code_Med_Trit"));
+                        out.println(gson.toJson(WS.PortCltWS.getListSallebyCodeMedTrit(code_Med_Trit)));
+                        break;
+                    }
                     case "GetAssuranceCNAMByPatient":
                     {
                         int NumFichPatient=Integer.parseInt(request.getParameter("NumFichPatient"));
@@ -148,6 +154,15 @@ public class Gestion_Patient extends HttpServlet {
                                 out.println(gson.toJson(WS.PortCltWS.ajPatient(nom,prenom,sexse,dateC,sutfam,prof,adr,fixe,gsm,poid,ville,fichpapier,AutreAssur,code_apci,type_apci,dateC1,AssurCnam)));
                             } break;
                         }
+                    case "AjSalle_Attente":
+                        {
+                            int num_rdv=Integer.parseInt(request.getParameter("num_rdv"));
+                            int num_patient=Integer.parseInt(request.getParameter("num_patient"));
+                            int num_medc_trait=Integer.parseInt(request.getParameter("num_medc_trait"));
+                            String note=request.getParameter("note");
+                            out.println(gson.toJson(WS.PortCltWS.ajSalleAttente(num_patient,num_rdv, note, num_medc_trait)));
+                            break;
+                        }
                     case "AjPatientByMedecin":
                         {
                             int code_Med_Trit=Integer.parseInt(request.getParameter("code_Med_Trit"));
@@ -159,6 +174,12 @@ public class Gestion_Patient extends HttpServlet {
                         {
                             String idpatient=request.getParameter("num");
                             out.println(gson.toJson(WS.PortCltWS.suppPatient(idpatient)));
+                            break;
+                        }
+                    case "SuppSalleAttente":
+                        {
+                            int num_ligneAttend=Integer.parseInt(request.getParameter("num_ligneAttend"));
+                            out.println(gson.toJson(WS.PortCltWS.suppSalleAttente(num_ligneAttend)));
                             break;
                         }
                     case "UpdatePatient":

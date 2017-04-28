@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package com.csys.gcm.servlet;
-
 import com.csys.gcm.generic.WS;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,6 +23,8 @@ import javax.servlet.http.HttpSession;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 
 /**
  *
@@ -55,6 +56,7 @@ public class Consultation extends HttpServlet {
             Gson gson = new GsonBuilder().serializeNulls().create();
             HttpSession session=request.getSession(true);
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            org.joda.time.format.DateTimeFormatter sdftime =  DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
             String function=request.getParameter("function");
             String type=request.getParameter("type");
             
@@ -96,6 +98,12 @@ public class Consultation extends HttpServlet {
                                 out.println(gson.toJson(WS.PortCltWS.getActeNonRemborsablebyLibelle(libelle)));
                                 break;
                             }
+                    case "GetListRdvByNumMedecin":        
+                            {
+                                int numMedecinTrait=Integer.parseInt(request.getParameter("numMedecinTrait"));
+                                out.println(gson.toJson(WS.PortCltWS.getListRdvByNumMedecin(numMedecinTrait)));
+                                break;
+                            }
                     case "GetListAntecedentsByPatient":        
                             {
                                 int patient=Integer.parseInt(request.getParameter("patient"));
@@ -106,6 +114,13 @@ public class Consultation extends HttpServlet {
                             {
                                 int NumFichPatient=Integer.parseInt(request.getParameter("NumFichPatient"));
                                 out.println(gson.toJson(WS.PortCltWS.getListConsultationByPatient(NumFichPatient)));
+                                break;
+                            }
+                    case "GetListPatientByFichPatient":        
+                            {
+                                int code_Med_Trit=Integer.parseInt(request.getParameter("code_Med_Trit"));
+                                int NumFichPatient=Integer.parseInt(request.getParameter("NumFichPatient"));
+                                out.println(gson.toJson(WS.PortCltWS.getListPatientByFichPatient(code_Med_Trit, NumFichPatient)));
                                 break;
                             }
                     case "GetListMotifConsultByNumConsult":        
@@ -239,6 +254,48 @@ public class Consultation extends HttpServlet {
                                 out.println(gson.toJson(WS.PortCltWS.ajConsultation(dateC, num_patient, Diag_consult, type_consult,code_Med_Trit,num_examen,num_ord)));
                                 break;
                             } 
+                        case "AjRdv":
+                            {
+                                String start_date=request.getParameter("start_date");
+                                DateTime start_date_ = sdftime.parseDateTime(start_date);
+                                GregorianCalendar c = start_date_.toGregorianCalendar();
+                                XMLGregorianCalendar date1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+                                
+                                String end_date=request.getParameter("end_date");
+                                DateTime end_date_ = sdftime.parseDateTime(end_date);
+                                GregorianCalendar c1 = end_date_.toGregorianCalendar();
+                                XMLGregorianCalendar date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c1);
+                                
+                                int num_patient=Integer.parseInt(request.getParameter("num_patient"));
+                                int num_medecin_trait=Integer.parseInt(request.getParameter("num_medecin_trait"));
+                                String typeRDV=request.getParameter("typeRDV");
+                                String descpRDV=request.getParameter("descpRDV");
+                                int presence=Integer.parseInt(request.getParameter("presence"));
+                               
+                                out.println(gson.toJson(WS.PortCltWS.ajRdv(date1,typeRDV,descpRDV,presence,num_patient,num_medecin_trait,date2)));
+                                break;
+                            } 
+                        case "UpdateRdv":
+                            {
+                                String start_date=request.getParameter("start_date");
+                                DateTime start_date_ = sdftime.parseDateTime(start_date);
+                                GregorianCalendar c = start_date_.toGregorianCalendar();
+                                XMLGregorianCalendar date1 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+                                
+                                String end_date=request.getParameter("end_date");
+                                DateTime end_date_ = sdftime.parseDateTime(end_date);
+                                GregorianCalendar c1 = end_date_.toGregorianCalendar();
+                                XMLGregorianCalendar date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c1);
+                                
+                                int num_patient=Integer.parseInt(request.getParameter("num_patient"));
+                                int numRdv=Integer.parseInt(request.getParameter("numRdv"));
+                                String typeRDV=request.getParameter("typeRDV");
+                                String descpRDV=request.getParameter("descpRDV");
+                                int presence=Integer.parseInt(request.getParameter("presence"));
+                               
+                                out.println(gson.toJson(WS.PortCltWS.updateRdv(numRdv, date1, typeRDV, descpRDV, presence, num_patient, date2)));
+                                break;
+                            }
                         case "AjOrdonnance":
                             {
                                 String date_Ord=request.getParameter("date_Ord");
@@ -306,6 +363,70 @@ public class Consultation extends HttpServlet {
                                 out.println(gson.toJson(WS.PortCltWS.ajActe(libelle, accord, tiket_moder, montant, Description, cotation, type_acte)));
                                 break;
                             }
+                        case "AjParametre":
+                            {
+                                
+                                String date_naiss=request.getParameter("date_naiss");
+                                Date datnaiss_ = sdf.parse(date_naiss);
+                                GregorianCalendar c = new GregorianCalendar();
+                                c.setTime(datnaiss_);
+                                XMLGregorianCalendar dateC = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+                                
+                                String nom_medecin=request.getParameter("nom_medecin");
+                                String prenom_medecin=request.getParameter("prenom_medecin");
+                                String salutation=request.getParameter("salutation");
+                                String num_inscp_ord_med=request.getParameter("num_inscp_ord_med");
+                                String adresse=request.getParameter("adresse");
+                                String ville=request.getParameter("ville");
+                                String Fixe=request.getParameter("Fixe");
+                                String GSM=request.getParameter("GSM");
+                                String email=request.getParameter("email");
+                                String titre=request.getParameter("titre");
+                                String specialite=request.getParameter("specialite");
+                                String code_convent=request.getParameter("code_convent");
+                                String type_consult=request.getParameter("type_consult");
+                                String mnt_consultSansConv=request.getParameter("mnt_consultSansConv");
+                                String gouvernorat=request.getParameter("gouvernorat");
+                                int code_Med_Trit=Integer.parseInt(request.getParameter("code_Med_Trit"));
+                                double tiket_moder=Double.parseDouble(request.getParameter("tiket_moder"));
+                                double tva_consult=Double.parseDouble(request.getParameter("tva_consult"));
+                                double montant_consult=Double.parseDouble(request.getParameter("montant_consult"));
+                               
+                                out.println(gson.toJson(WS.PortCltWS.ajParametre(nom_medecin, prenom_medecin, dateC, salutation, num_inscp_ord_med, adresse, ville, Fixe, GSM, email, titre, specialite, gouvernorat, code_convent, tiket_moder, tva_consult, montant_consult, type_consult, mnt_consultSansConv, code_Med_Trit)));
+                                break;
+                            }
+                        case "UpdateParametre":
+                            {
+                                
+                                String date_naiss=request.getParameter("date_naiss");
+                                Date datnaiss_ = sdf.parse(date_naiss);
+                                GregorianCalendar c = new GregorianCalendar();
+                                c.setTime(datnaiss_);
+                                XMLGregorianCalendar dateC = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+                                
+                                String nom_medecin=request.getParameter("nom_medecin");
+                                String prenom_medecin=request.getParameter("prenom_medecin");
+                                String salutation=request.getParameter("salutation");
+                                String num_inscp_ord_med=request.getParameter("num_inscp_ord_med");
+                                String adresse=request.getParameter("adresse");
+                                String ville=request.getParameter("ville");
+                                String Fixe=request.getParameter("Fixe");
+                                String GSM=request.getParameter("GSM");
+                                String email=request.getParameter("email");
+                                String titre=request.getParameter("titre");
+                                String specialite=request.getParameter("specialite");
+                                String code_convent=request.getParameter("code_convent");
+                                String type_consult=request.getParameter("type_consult");
+                                String mnt_consultSansConv=request.getParameter("mnt_consultSansConv");
+                                String gouvernorat=request.getParameter("gouvernorat");
+                                int num_cab=Integer.parseInt(request.getParameter("num_cab"));
+                                double tiket_moder=Double.parseDouble(request.getParameter("tiket_moder"));
+                                double tva_consult=Double.parseDouble(request.getParameter("tva_consult"));
+                                double montant_consult=Double.parseDouble(request.getParameter("montant_consult"));
+                               
+                                out.println(gson.toJson(WS.PortCltWS.updateParametre(num_cab,nom_medecin, prenom_medecin, dateC, salutation, num_inscp_ord_med, adresse, ville, Fixe, GSM, email, titre, specialite, gouvernorat, code_convent, tiket_moder, tva_consult, montant_consult, type_consult, mnt_consultSansConv)));
+                                break;
+                            }
                         case "AjActeMedicaux":
                             {
                                 String date_acte=request.getParameter("date_acte");
@@ -326,6 +447,12 @@ public class Consultation extends HttpServlet {
                                 String num_consult=request.getParameter("num_consult");
                                
                                 out.println(gson.toJson(WS.PortCltWS.suppConsultation(num_consult)));
+                                break;
+                            } 
+                        case "SuppRdv":
+                            {
+                                String num_RDV=request.getParameter("num_RDV");
+                                out.println(gson.toJson(WS.PortCltWS.suppRdv(num_RDV)));
                                 break;
                             } 
                         case "SuppMotifConsultbyNum_Consult":
