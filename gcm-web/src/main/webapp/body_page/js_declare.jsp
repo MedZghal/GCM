@@ -30,12 +30,52 @@
         <script src="../assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/jstree/dist/jstree.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="../js/plugin/bootstraptree/bootstrap-tree.min.js"></script>
-         <script src="../assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" type="text/javascript"></script>
-        <script src="../assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js" type="text/javascript"></script>
+         <!--script src="../assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" type="text/javascript"></script-->
+        <!--script src="../assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js" type="text/javascript"></script-->
          <script src="../assets/global/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.js" type="text/javascript"></script>
         <script src="../assets/global/plugins/bootstrap-editable/inputs-ext/address/address.js" type="text/javascript"></script>
-        <script src="../assets/global/plugins/bootstrap-editable/inputs-ext/wysihtml5/wysihtml5.js" type="text/javascript"></script>
+        <!--script src="../assets/global/plugins/bootstrap-editable/inputs-ext/wysihtml5/wysihtml5.js" type="text/javascript"></script-->
+        
         <script src="../js/portlet-draggable.js" type="text/javascript"></script>
+        <script src="../js/dhtmlxscheduler/dhtmlxscheduler.js" type="text/javascript" charset="utf-8"></script><!--148-->
+        <script src="../js/dhtmlxscheduler/ext/dhtmlxscheduler_agenda_view.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/dhtmlxscheduler/ext/dhtmlxscheduler_year_view.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/dhtmlxscheduler/ext/dhtmlxscheduler_active_links.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/dhtmlxscheduler/ext/dhtmlxscheduler_all_timed.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/dhtmlxscheduler/ext/dhtmlxscheduler_recurring.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/dhtmlxscheduler/ext/dhtmlxscheduler_editors.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/dhtmlxscheduler/ext/dhtmlxscheduler_minical.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/dhtmlxscheduler/ext/dhtmlxscheduler_collision.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/dhtmlxscheduler/ext/dhtmlxscheduler_serialize.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/dhtmlxscheduler/ext/dhtmlxscheduler_readonly.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/dhtmlxscheduler/ext/dhtmlxscheduler_limit.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/dhtmlxscheduler/dhtmlxMenu/dhtmlxmenu.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/dhtmlxscheduler/dhtmlxcommon.js"></script>
+	<script src="../js/dhtmlxscheduler/dhtmlxcombo.js"></script>
+        <script src="../js/summernote/summernote.js"></script>
+        <script src="../js/summernote-ext-print.js" type="text/javascript"></script>
+        <script src="../js/jquery.translate.js" type="text/javascript"></script>
+        <!--script type="text/javascript" src="../js/jqwidgets/demos.js"></script-->
+        <script type="text/javascript" src="../js/jqwidgets/jqxcore.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxbuttons.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxscrollbar.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxdata.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxdate.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxscheduler.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxscheduler.api.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxdatetimeinput.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxmenu.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxcalendar.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxtooltip.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxwindow.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxcheckbox.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxlistbox.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxdropdownlist.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxnumberinput.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxradiobutton.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/jqxinput.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/globalization/globalize.js"></script>
+        <script type="text/javascript" src="../js/jqwidgets/globalization/globalize.culture.de-DE.js"></script>
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL SCRIPTS -->
         <script src="../assets/global/scripts/app.min.js" type="text/javascript"></script>

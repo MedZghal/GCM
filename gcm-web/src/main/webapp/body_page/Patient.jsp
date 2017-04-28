@@ -80,9 +80,9 @@
                                     </div>
                                     <div class="details">
                                         <div class="number">
-                                            <span data-counter="counterup" data-value="549">549</span>
+                                            <span data-counter="counterup" data-value="54">54</span>
                                         </div>
-                                        <div class="desc"> New Orders </div>
+                                        <div class="desc"> Nombre de Consultation </div>
                                     </div>
                                 </a>
                             </div>
@@ -93,8 +93,8 @@
                                     </div>
                                     <div class="details">
                                         <div class="number"> +
-                                            <span data-counter="counterup" data-value="89">89</span>% </div>
-                                        <div class="desc"> Brand Popularity </div>
+                                            <span data-counter="counterup" data-value="89">89</span></div>
+                                        <div class="desc"> Nombre de RDV </div>
                                     </div>
                                 </a>
                             </div>

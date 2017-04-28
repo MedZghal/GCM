@@ -1,21 +1,68 @@
 
-function GetListActeMedicauxNonRembByNumConsult(NumConsult)
-{
-    var reponse;
-    $.ajax({
-        url: "../Consultation?type=consult&function=GetListActeMedicauxNonRembByNumConsult&NumConsult="+NumConsult,
-        type: 'POST',
-        async: false,
-        dataType: "json",
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-        },
-        success: function (data, texStatus, jqXHR)
-        {
-            reponse = data;
+
+
+function RemplirActesNonRemb(Actes, element){
+    var tree_html="";
+   tree_html+='<div class="row">';
+   $.each(Actes, function (i){
+       if(Actes[i] !== null){
+            tree_html+='<div class="col-md-12" >';
+            
+            if(update==="false")
+                tree_html+='<div class="pull-right" style="margin-left: -10px;margin-top: 4px;"> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-wrench"></i></a> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:DeleteActeMedicaux('+Actes[i].acte.numActe.toString()+',0);"><i class="icon-trash"></i></a></div>';
+            else
+                tree_html+='<div class="pull-right" style="margin-left: -10px;margin-top: 4px;"> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-wrench"></i></a> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:DeleteActeMedicaux('+Actes[i].acte.numActe.toString()+','+Actes[i].consultation.numConsult.toString()+');"><i class="icon-trash"></i></a></div>';
+        
+            tree_html+='<div class="tree" style="overflow:hidden;">';
+            tree_html+='<ul role="tree">';
+            tree_html+='<li class="parent_li" role="treeitem" >';
+            tree_html+=' <span  style="width: 95%;"><i class="fa fa-lg fa-calendar"></i>'+DateMM_DD_YYYY(Actes[i].date)+"  ("+GenerateCode(Actes[i].acte.numActe.toString())+")"+'</span>';
+            tree_html+='<ul role="group">';
+            tree_html+='<li class="parent_li" role="treeitem">';
+            tree_html+='<span class="label label-success" ><i class="fa fa-lg fa-minus-circle"></i> Code Acte : '+GenerateCode(Actes[i].acte.numActe.toString())+'</span>';
+            tree_html+='<ul role="group">';
+            tree_html+='<li><span><i class="fa fa-clock-o"></i> Montant Acte : '+Actes[i].acte.montant+'</span> </li>';
+            tree_html+='<li><span><i class="fa fa-clock-o"></i> Description : '+Actes[i].acte.description+' </span> </li>';
+          
+            tree_html+='</ul></li></ul></li></ul></li></ul></div></div>';    
         }
-    });
-    return reponse;
+   });
+   tree_html+='</div>';
+   element.empty().append(tree_html); 
+}
+
+
+function RemplirActes(Actes){
+    var tree_html="";
+   tree_html+='<div class="row">';
+   $.each(Actes, function (i){
+       if(Actes[i] !== null){
+            tree_html+='<div class="col-md-12" >';
+            
+            if(update==="false")
+                tree_html+='<div class="pull-right" style="margin-left: -10px;margin-top: 4px;"> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-wrench"></i></a> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:DeleteActeMedicaux('+Actes[i].acte.numActe.toString()+',0);"><i class="icon-trash"></i></a></div>';
+            else
+                tree_html+='<div class="pull-right" style="margin-left: -10px;margin-top: 4px;"> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-wrench"></i></a> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:DeleteActeMedicaux('+Actes[i].acte.numActe.toString()+','+Actes[i].consultation.numConsult.toString()+');"><i class="icon-trash"></i></a></div>';
+        
+            tree_html+='<div class="tree" style="overflow:hidden;">';
+            tree_html+='<ul role="tree">';
+            tree_html+='<li class="parent_li" role="treeitem" >';
+            tree_html+=' <span  style="width: 95%;"><i class="fa fa-lg fa-calendar"></i>'+DateMM_DD_YYYY(Actes[i].date)+"  ("+GenerateCode(Actes[i].acte.numActe.toString())+")"+'</span>';
+            tree_html+='<ul role="group">';
+            tree_html+='<li class="parent_li" role="treeitem">';
+            tree_html+='<span class="label label-success" ><i class="fa fa-lg fa-minus-circle"></i> Code Acte : '+GenerateCode(Actes[i].acte.numActe.toString())+'</span>';
+            tree_html+='<ul role="group">';
+            tree_html+='<li><span><i class="fa fa-clock-o"></i> Montant Acte : '+Actes[i].acte.montant+'</span> </li>';
+            tree_html+='<li><span><i class="fa fa-clock-o"></i> Tiket Modérateur : '+Actes[i].acte.tiketModer+' </span> </li>';
+            if(Actes[i].acte.accord.toString()=== "1")
+                tree_html+='<li><span><i class="fa fa-clock-o"></i> Avec Accord CNAM </span> </li>';
+            else
+                tree_html+='<li><span><i class="fa fa-clock-o"></i> Sans Accord CNAM </span> </li>';
+            tree_html+='</ul></li></ul></li></ul></li></ul></div></div>';    
+        }
+   });
+   tree_html+='</div>';
+   $("#listeActes").empty().append(tree_html); 
 }
 
 function GetActeNonRemborsablebyLibelle(libelle)
@@ -106,7 +153,7 @@ function  remplirActeMedicalNonRemb(update,num_consult){
  
     $("#nbActeMedic").empty().append(actes.length);
     
-    RemplirActesNonRemb(actes);
+    RemplirActesNonRemb(actes,$("#listeActes"));
     
     if(actes.length===0)
         $('.alert-danger').show();
@@ -122,7 +169,6 @@ function DeleteActeMedicaux(num_acte, num_consult){
                                 if (ButtonPress === "Valider") {
                                     var Err =SuppActeMedicaux(num_acte, num_consult);
                                      if(Err.toString()==="true"){
-                                        //window.location.reload();
                                         remplirActeMedical(localStorage.getItem("UpdateConsult"),num_consult);
                                         window.parent.swal("Notification !", "Consultation Supprimé Avec Succès", "success");
                                 }else
@@ -132,26 +178,6 @@ function DeleteActeMedicaux(num_acte, num_consult){
                             });
     
 }
-
-function SuppActeMedicaux(num_acte, num_consult)
-{
-    var reponse;
-    $.ajax({
-        url: "../Consultation?type=update&function=SuppActeMedicaux&num_acte="+num_acte+"&num_consult="+num_consult,
-        type: 'POST',
-        async: false,
-        dataType: "json",
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-        },
-        success: function (data, texStatus, jqXHR)
-        {
-            reponse = data;
-        }
-    });
-    return reponse;
-}
-
 
 function AjActeMedicaux(num_acte, num_consult, date_acte, nb_pr_chg)
 {
@@ -185,69 +211,6 @@ function GetActe(Acte,code_Acte){
 }
 
 
-
-function RemplirActes(Actes){
-    var tree_html="";
-   tree_html+='<div class="row">';
-   $.each(Actes, function (i){
-       if(Actes[i] !== null){
-            tree_html+='<div class="col-md-12" >';
-            
-            if(update==="false")
-                tree_html+='<div class="pull-right" style="margin-left: -10px;margin-top: 4px;"> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-wrench"></i></a> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:DeleteActeMedicaux('+Actes[i].acte.numActe.toString()+',0);"><i class="icon-trash"></i></a></div>';
-            else
-                tree_html+='<div class="pull-right" style="margin-left: -10px;margin-top: 4px;"> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-wrench"></i></a> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:DeleteActeMedicaux('+Actes[i].acte.numActe.toString()+','+Actes[i].consultation.numConsult.toString()+');"><i class="icon-trash"></i></a></div>';
-        
-            tree_html+='<div class="tree" style="overflow:hidden;">';
-            tree_html+='<ul role="tree">';
-            tree_html+='<li class="parent_li" role="treeitem" >';
-            tree_html+=' <span  style="width: 95%;"><i class="fa fa-lg fa-calendar"></i>'+DateMM_DD_YYYY(Actes[i].date)+"  ("+GenerateCode(Actes[i].acte.numActe.toString())+")"+'</span>';
-            tree_html+='<ul role="group">';
-            tree_html+='<li class="parent_li" role="treeitem">';
-            tree_html+='<span class="label label-success" ><i class="fa fa-lg fa-minus-circle"></i> Code Acte : '+GenerateCode(Actes[i].acte.numActe.toString())+'</span>';
-            tree_html+='<ul role="group">';
-            tree_html+='<li><span><i class="fa fa-clock-o"></i> Montant Acte : '+Actes[i].acte.montant+'</span> </li>';
-            tree_html+='<li><span><i class="fa fa-clock-o"></i> Tiket Modérateur : '+Actes[i].acte.tiketModer+' </span> </li>';
-            if(Actes[i].acte.accord.toString()=== "1")
-                tree_html+='<li><span><i class="fa fa-clock-o"></i> Avec Accord CNAM </span> </li>';
-            else
-                tree_html+='<li><span><i class="fa fa-clock-o"></i> Sans Accord CNAM </span> </li>';
-            tree_html+='</ul></li></ul></li></ul></li></ul></div></div>';    
-        }
-   });
-   tree_html+='</div>';
-   $("#listeActes").empty().append(tree_html); 
-}
-
-function RemplirActesNonRemb(Actes){
-    var tree_html="";
-   tree_html+='<div class="row">';
-   $.each(Actes, function (i){
-       if(Actes[i] !== null){
-            tree_html+='<div class="col-md-12" >';
-            
-            if(update==="false")
-                tree_html+='<div class="pull-right" style="margin-left: -10px;margin-top: 4px;"> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-wrench"></i></a> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:DeleteActeMedicaux('+Actes[i].acte.numActe.toString()+',0);"><i class="icon-trash"></i></a></div>';
-            else
-                tree_html+='<div class="pull-right" style="margin-left: -10px;margin-top: 4px;"> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;"><i class="icon-wrench"></i></a> <a class="btn btn-circle btn-icon-only btn-default" href="javascript:DeleteActeMedicaux('+Actes[i].acte.numActe.toString()+','+Actes[i].consultation.numConsult.toString()+');"><i class="icon-trash"></i></a></div>';
-        
-            tree_html+='<div class="tree" style="overflow:hidden;">';
-            tree_html+='<ul role="tree">';
-            tree_html+='<li class="parent_li" role="treeitem" >';
-            tree_html+=' <span  style="width: 95%;"><i class="fa fa-lg fa-calendar"></i>'+DateMM_DD_YYYY(Actes[i].date)+"  ("+GenerateCode(Actes[i].acte.numActe.toString())+")"+'</span>';
-            tree_html+='<ul role="group">';
-            tree_html+='<li class="parent_li" role="treeitem">';
-            tree_html+='<span class="label label-success" ><i class="fa fa-lg fa-minus-circle"></i> Code Acte : '+GenerateCode(Actes[i].acte.numActe.toString())+'</span>';
-            tree_html+='<ul role="group">';
-            tree_html+='<li><span><i class="fa fa-clock-o"></i> Montant Acte : '+Actes[i].acte.montant+'</span> </li>';
-            tree_html+='<li><span><i class="fa fa-clock-o"></i> Description : '+Actes[i].acte.description+' </span> </li>';
-          
-            tree_html+='</ul></li></ul></li></ul></li></ul></div></div>';    
-        }
-   });
-   tree_html+='</div>';
-   $("#listeActes").empty().append(tree_html); 
-}
 
 function handleValidation() {
         // for more info visit the official plugin documentation: 

@@ -1,5 +1,5 @@
 var url =window.location.href;
-var localhost =url.substring(7,url.lastIndexOf(':'));
+var localhost =url.substring(7,url.lastIndexOf(':')+5);
         
 var options=  toastr.options = {
   "closeButton": true,
@@ -59,24 +59,36 @@ function GetParemetrebyCodeMedTrit(codeMedTrit)
  var utilisateur =GetListUtilisateur();
  
 function Connect(){
+    localStorage.setItem("Secretaire",JSON.stringify([]));
      var verif ="false";
+     var paramater,codeMedTrit;
         $.each(utilisateur , function(i){
             if(utilisateur[i].username === $("#user").val() && utilisateur[i].pass === $("#password").val() ){
+                if(utilisateur[i].codeMedTrit<0){
+                    codeMedTrit=utilisateur[i].secretaire;
+                    localStorage.setItem("Secretaire",JSON.stringify(utilisateur[i]));
+                }else
+                    codeMedTrit=utilisateur[i].codeMedTrit;
                 verif ="true";
-                var paramater =GetParemetrebyCodeMedTrit(utilisateur[i].codeMedTrit);
-                localStorage.setItem("paramater",JSON.stringify(paramater));
+                paramater =GetParemetrebyCodeMedTrit(codeMedTrit);
+                if(paramater!==null)
+                    localStorage.setItem("paramater",JSON.stringify(paramater));
+                else
+                    localStorage.setItem("codeMedTrit_",codeMedTrit);
+                    
                 return false;
             }
         });
         
        if(verif.toString() === "true"){
-                    window.location.href= 'http://'+localhost+':8090/gcm-web/master_page/index.jsp';
-                     }
-                        else{
-                             
-            toastr.error('Nom utilisateur/Mot de passe invalide veuillez essayer de nouveau?','Error',options);
+                if(paramater!==null)
+                    window.location.href= 'http://'+localhost+'/gcm-web/master_page/index.jsp';
+                else
+                    window.location.href= 'http://'+localhost+'/gcm-web/body_page/Setup.jsp';
+                }
+                else
+                    toastr.error('Nom utilisateur/Mot de passe invalide veuillez essayer de nouveau?','Error',options);
                                         
-                                  }
 }
 
 $(function(){

@@ -183,7 +183,7 @@ $(function (){
                      if(update==="true")
                         actes=GetListActeMedicauxNonRembByNumConsult(num_consult);
 
-                    RemplirActesNonRemb(actes);
+                    RemplirActesNonRemb(actes,$("#listeActes"));
                     $('.alert-danger').hide();
                     treeRefresh();
                     $("#nbActeMedic").empty().append(actes.length);

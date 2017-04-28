@@ -33,27 +33,6 @@ function GetListConsultationByPatient(NumFichPatient)
 }
 
 
-
-
-function SuppPatient(idpatient)
-{
-    var reponse;
-    $.ajax({
-        url: "../Gestion_Patient?type=update&function=SuppPatient&num="+idpatient,
-        type: 'POST',
-        async: false,
-        dataType: "json",
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-        },
-        success: function (data, texStatus, jqXHR)
-        {
-            reponse = data;
-        }
-    });
-    return reponse;
-}
-
 function GetPatientByNumFichPatient(NumFichPatient)
 {
     var reponse;
@@ -92,24 +71,7 @@ function GetAssuranceCNAMByPatient(NumFichPatient)
     return reponse;
 }
 
-function GetListPatientByMedecin(code_Med_Trit)
-{
-    var reponse;
-    $.ajax({
-        url: "../Gestion_Patient?type=consult&function=GetListPatientByMedecin&code_Med_Trit="+code_Med_Trit,
-        type: 'POST',
-        async: false,
-        dataType: "json",
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-        },
-        success: function (data, texStatus, jqXHR)
-        {
-            reponse = data;
-        }
-    });
-    return reponse;
-}
+
 
 /*Grid des patients*/
 function createBackGrid() {
@@ -379,6 +341,11 @@ function createBackGrid() {
                window.location.href='AjPatient.jsp';
             },
             ClickConsult: function () {
+                var Secretaire =JSON.parse(localStorage.getItem("Secretaire"));
+        if(Object.keys(Secretaire).length>0)
+            toastr.error("L'accés n'est autorisé  !!!.",'Error',option);
+        else
+            {
                 var Model =this.model;
                 Consults =GetListConsultationByPatient(Model.get("numFichPatient"));
                 
@@ -419,7 +386,7 @@ function createBackGrid() {
                             window.location.href='../body_page/Consultation.jsp';
                         }
                     	
-               
+                }
             },
             ClickDelete: function () {
                 var Model =this.model;
@@ -443,10 +410,6 @@ function createBackGrid() {
                                     
                                  
                                   
-                        }
-                        
-                        if (ButtonPressed === "Annuler") {
-                                
                         }
                             
                 });

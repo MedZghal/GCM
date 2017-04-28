@@ -24,10 +24,12 @@
         <link href="../assets/global/plugins/bootstrap-tagsinput/bootstrap-tagsinput-typeahead.css" rel="stylesheet" type="text/css" />
         <link href="../css/backgrid-sizeable-columns.css" rel="stylesheet" type="text/css" />
         <link href="../css/mfb.css" rel="stylesheet" type="text/css" />
+        <link href="../js/summernote/summernote.css" rel="stylesheet" type="text/css" />
         <link href="../assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css" />
         <link href="../assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
         <link href="../assets/global/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" type="text/css" />
         <link href="../js/backbone_backgrid/subgrid-cell/backgrid-subgrid-cell.css" rel="stylesheet" type="text/css" />
+        
         
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->

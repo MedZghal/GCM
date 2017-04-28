@@ -14,7 +14,7 @@
         <jsp:include page="../body_page/css_declare.jsp"/>
     </head>
     
-    <body style="font-family: cursive;background-color: transparent;height: 100%;"  >
+    <body style="font-family: cursive;background-color: transparent;height: 100%;"   >
           <!-- BEGIN PAGE BAR -->
                         <div class="page-bar" style="padding-top: 5px">
                             <ul class="page-breadcrumb">
@@ -58,7 +58,7 @@
                                                         <div class="row" style="margin-left: 0px;">
                                                    <div class="ribbon ribbon-left ribbon-clip ribbon-shadow ribbon-round ribbon-border-dash-hor ribbon-color-info uppercase" style="font-family: cursive">
                                                                         <div class="ribbon-sub ribbon-clip"></div>
-                                                                        <img id="fichelog" src="../img/pills.png" alt="details">&nbsp; Archive Médical </div>
+                                                                        <img id="fichelog" src="../img/cardiogram.png" alt="details" style="    width: 32px;">&nbsp; Archive Médical </div>
                                                     </div>
                                                         <div class="panel-body">
                                                 
@@ -81,8 +81,8 @@
                                                                                            <li class="active">
                                                                                                <a href="#portlet_comments_1" data-toggle="tab"> Liste des Patients &nbsp;<img src="../img/pills.png" style="width: 20px;margin-top: -5px;" alt="Ordonnance"> </a>
                                                                                            </li>
-                                                                                           <li>
-                                                                                               <a href="javascript:window.location.href='AjPatient.jsp';"> Ajouter Patient <img src="../img/drugs.png" style="width: 20px;margin-top: -5px;" alt="Ordonnance"> </a>
+                                                                                           <li class="hide">
+                                                                                               <a href="#" id="Npatient"> Nouveau Patient <img src="../img/drugs.png" style="width: 20px;margin-top: -5px;" alt="Ordonnance"> </a>
                                                                                            </li>
                                                                                        </ul>
                                                                                    </div>
@@ -92,7 +92,7 @@
                                                                                                         <div class="input-icon">
                                                                                                             <select id="select2-patient" class="form-control"></select>
                                                                                                             <label for="form_control_1">Patient</label>
-                                                                                                            <i class="fa fa-user-circle-o" aria-hidden="true" style=" margin-bottom: 6px; "></i>
+                                                                                                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                                                                                                         </div>
                                                                                                     </div>
                                                                                             </div>
@@ -124,7 +124,7 @@
                                                                             <div class="form-group">
                                                                                 <div class="col-md-10">
                                                                                     <img class="pull-left" src="../img/pulse.png" alt="Details" style="margin-left: 110px; margin-top: -25px;">
-                                                                                    <input id="antMedic" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Entrer antécidents médicaux"> 
+                                                                                    <input id="antMedic" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Entrer antécidents médicaux" disabled="true"> 
                                                                                 </div>
                                                                             </div>
                                                                     </div>
@@ -134,7 +134,7 @@
                                                                             <div class="form-group">
                                                                                 <div class="col-md-10">
                                                                                     <img class="pull-left" src="../img/cherig.png" alt="Details" style="margin-left: 110px; margin-top: -25px;">
-                                                                                    <input id="antch" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Entrer antécidents chirurgicaux"> 
+                                                                                    <input id="antch" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Entrer antécidents chirurgicaux" disabled="true"> 
                                                                                 </div>
                                                                             </div>
                                                                     </div>
@@ -149,7 +149,7 @@
                                                                             <div class="form-group">
                                                                                 <div class="col-md-10" style="margin-top: 15px;">
                                                                                     <img class="pull-left" src="../img/dru_gs.png" alt="Details" style="margin-left: 115px; margin-top: -20px;">
-                                                                                    <input id="antFami" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Entrer antécidents familiaux"> 
+                                                                                    <input id="antFami" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Entrer antécidents familiaux" disabled="true"> 
                                                                                 </div>
                                                                             </div>
                                                                     </div>
@@ -163,7 +163,7 @@
                                                                             <div class="form-group">
                                                                                 <div class="col-md-10" style="margin-top: 15px;">
                                                                                     <img class="pull-left" src="../img/nurse_.png" alt="Details" style="margin-left: 115px; margin-top: -20px;">
-                                                                                    <input id="antAllg" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Entrer antécidents allergies"> 
+                                                                                    <input id="antAllg" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Entrer antécidents allergies" disabled="true"> 
                                                                                 </div>
                                                                             </div>
                                                                     </div>
@@ -175,9 +175,9 @@
                                                                     <div class="row">
                                                                        
                                                                             <div class="form-group">
-                                                                                <div class="col-md-10" style="margin-left: 140px;">
-                                                                                    <img class="pull-left" src="../img/pill_s.png" style="margin: 5px;" alt="Details">
-                                                                                    <input id="triApci" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Entrer traitements apci"> 
+                                                                                <div class="col-md-10" style="margin-top: 15px;">
+                                                                                    <img class="pull-left" src="../img/pill_s.png" style="margin-left: 115px; margin-top: -20px;" alt="Details">
+                                                                                    <input id="triApci" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Entrer traitements apci" disabled="true"> 
                                                                                 </div>
                                                                             </div>
                                                                     </div>
@@ -195,13 +195,8 @@
                                                                                             <div class="panel-title" style="height: 60px">
                                                                                                 <div class="ribbon ribbon-left ribbon-clip ribbon-shadow ribbon-round ribbon-border-dash-hor ribbon-color-info uppercase" style="font-family: cursive">
                                                                                                  <div class="ribbon-sub ribbon-clip"></div>
-                                                                                                 <img src="../img/apci.png" alt="cnam">&nbsp; CNAM </div>
+                                                                                                 <img src="../img/nurse_.png" alt="cnam" style="margin-top: -6px;">&nbsp; CNAM </div>
 
-                                                                                                 <a>
-                                                                                                 <div id="SuppCnam"  class="ribbon ribbon-right ribbon-vertical-right ribbon-border-dash ribbon-color-danger ribbon-round ribbon-shadow uppercase hide" style="margin-right: 40px">
-                                                                                                     <i class="icon-trash" style="margin-left: -3px"></i>
-                                                                                                </div>
-                                                                                                 </a>
 
                                                                                                 <a id="hidecnam" class="accordion-toggle accordion-toggle-styled collapsed" style="font-family: cursive;padding-top: 20px " data-toggle="collapse" data-parent="#accordion1" href="#collapse_1" aria-expanded="false"> Asureé CNAM </a>
 
@@ -221,7 +216,7 @@
                                                                                                                     <div class="col-md-6">
                                                                                                                              <div class="form-group form-md-line-input has-success ">
                                                                                                                                 <div class="input-icon">
-                                                                                                                            <select id="regime_affi" name="regime_affi" class="form-control select2-bootstrap-append">
+                                                                                                                            <select id="regime_affi" name="regime_affi" class="form-control select2-bootstrap-append" disabled="true">
                                                                                                                                 <option value> sélectionnez </option>
                                                                                                                                 <option value="CNSS">CNSS</option>
                                                                                                                                 <option value="CNRPS">CNRPS</option>
@@ -234,7 +229,7 @@
                                                                                                                     <div class="col-md-6">
                                                                                                                             <div class="form-group form-md-line-input has-success ">
                                                                                                                                 <div class="input-icon">
-                                                                                                                                    <input id="ident_unique" name="ident_unique" type="text" class="form-control" placeholder="Identifient CNAM">
+                                                                                                                                    <input id="ident_unique" name="ident_unique" type="text" class="form-control" placeholder="Identifient CNAM" disabled="true">
                                                                                                                                     <label for="form_control_1">Identifient Unique</label>
                                                                                                                                     <span class="help-block">Entrer Identifient CNAM</span>
                                                                                                                                     <i class="fa fa-mobile" aria-hidden="true"></i>
@@ -246,7 +241,7 @@
                                                                                                                          <div class="col-md-6">
                                                                                                                              <div class="form-group form-md-line-input has-success ">
                                                                                                                                 <div class="input-icon">
-                                                                                                                                    <select id="qualite" name="qualite" class="form-control select2-bootstrap-append">
+                                                                                                                                    <select id="qualite" name="qualite" class="form-control select2-bootstrap-append" disabled="true">
                                                                                                                                 <option value> sélectionnez </option>
                                                                                                                                 <option value="Assuré">Assuré</option>
                                                                                                                                 <option value="Conjoint">Conjoint</option>
@@ -262,7 +257,7 @@
                                                                                                                          <div class="col-md-6">
                                                                                                                             <div class="form-group form-md-line-input has-success ">
                                                                                                                                 <div class="input-icon">
-                                                                                                                                    <input id="date_valid_cnam" name="date_valid_cnam" class="form-control form-control-inline  date-picker" type="text" size="120" value="" placeholder="Entrez la date de Validation">
+                                                                                                                                    <input id="date_valid_cnam" name="date_valid_cnam" class="form-control form-control-inline  date-picker" type="text" size="120" value="" placeholder="Entrez la date de Validation" disabled="true">
                                                                                                                                     <label for="form_control_1">Date de Validation Carnet CNAM</label>
                                                                                                                                     <i class="fa fa-calendar"></i>
                                                                                                                                 </div>
@@ -273,7 +268,7 @@
                                                                                                                         <div class="col-md-6">
                                                                                                                              <div class="form-group form-md-line-input has-success ">
                                                                                                                                 <div class="input-icon">
-                                                                                                                                    <select id="type_cnam" name="type_cnam" class="form-control select2-bootstrap-append">
+                                                                                                                                    <select id="type_cnam" name="type_cnam" class="form-control select2-bootstrap-append" disabled="true">
                                                                                                                                 <option value> sélectionnez </option>
                                                                                                                                 <option value="Filiére publique">Filiére publique</option>
                                                                                                                                 <option value="Remboursement">Remboursement</option>
@@ -287,7 +282,7 @@
                                                                                                                         <div class="col-md-6">
                                                                                                                             <div class="form-group form-md-line-input has-success ">
                                                                                                                                 <div class="input-icon">
-                                                                                                                                    <input id="rang_Assur" name="rang_Assur" type="number" class="form-control" placeholder="Rang">
+                                                                                                                                    <input id="rang_Assur" name="rang_Assur" type="number" class="form-control" placeholder="Rang" disabled="true">
                                                                                                                                     <label for="form_control_1">Rang Assuré</label>
                                                                                                                                     <span class="help-block">Entrer le Rang Assuré</span>
                                                                                                                                     <i class="fa fa-anchor" aria-hidden="true"></i>
@@ -308,6 +303,229 @@
                                                                                </div>
                                                                                
                                                                            </div>
+                                                            <div class="row">
+                                                                 <div class="col-md-12">
+                                                                               <div class="portlet light bordered" style="background-color: #fff;margin: 5px;height: 745px;">
+                                                                                   <div class="portlet-title tabbable-line">
+                                                                                       <div class="caption">
+                                                                                           <i class="icon-bubbles font-dark hide"></i>
+                                                                                           <span class="caption-subject font-dark bold uppercase"><img src="../img/pillsapci.png" alt="details" > &nbsp;Consultations </span>
+                                                                                       </div>
+                                                                                       <ul class="nav nav-tabs">
+                                                                                           <li class="active">
+                                                                                               <a href="#portlet_comments_1" data-toggle="tab"> Liste des Consultations &nbsp;<img src="../img/pills.png" style="width: 20px;margin-top: -5px;" alt="Ordonnance"> </a>
+                                                                                           </li>
+                                                                                           <li class="hide">
+                                                                                               <a href="#" id="Nconsult"> Nouvelle consultation <img src="../img/drugs.png" style="width: 20px;margin-top: -5px;" alt="Ordonnance"> </a>
+                                                                                           </li>
+                                                                                       </ul>
+                                                                                   </div>
+                                                                                   <div class="portlet-body">
+                                                                                            <div class="col-sm-12">
+                                                                                                <div class="form-group form-md-line-input has-success " style=" margin-top: -15px; ">
+                                                                                                        <div class="input-icon">
+                                                                                                            
+                                                                                                            <select id="select2-consult" class="form-control"></select>
+                                                                                                            
+                                                                                                            <label for="form_control_1">Consultation<span id="nbconsultt" class="badge badge-danger pull-right" style="margin-top: 8px; margin-right: -7px;">0</span></label>
+                                                                                                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                            </div>
+                                                                                       <div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
+                                                                                           <div class="portlet light bordered">
+                                                                                               <div class="portlet-body tabs-below">
+                                                                                                   <div class="row">
+                                                                                                       <div class="col-md-12">
+                                                                                                           <div class="form-group">
+                                                                                                                <div class="col-md-6" style="margin-left: -110px; margin-top: 15px; margin-bottom: 20px;">
+                                                                                                                    <img class="pull-left" src="../img/hospitaldetails.png" alt="Details" style="margin-left: 115px; margin-top: -20px;">
+                                                                                                                    <input id="Motifs" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Motifs de Consultation" disabled="true"> 
+                                                                                                                </div>
+                                                                                                                <div class="col-md-6" style="margin-top: 15px;">
+                                                                                                                    <img class="pull-left" src="../img/cardiog.png" alt="Details" style="margin-left: 115px; margin-top: -20px;">
+                                                                                                                    <input id="Diagnostic" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Diagnostic de Consultation" disabled="true"> 
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                       </div>
+                                                                                                   </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">
+                                                                                                        <div class="tab-content">
+                                                                                                            <div class="tab-pane active in" id="tab_7_1">
+                                                                                                                <div class="row">
+                                                                                                                     <div class="row">
+                                                                    
+                                                                                                                            <div class="col-md-3">
+
+                                                                                                                                <div class="form-group form-md-line-input has-success ">
+                                                                                                                                    <div class="input-icon">
+                                                                                                                                        <input id="TA" name="TA" type="text" class="form-control" placeholder="TA" >
+                                                                                                                                        <label for="form_control_1">TA</label>
+                                                                                                                                        <span id="dateta" class="help-block"></span>
+                                                                                                                                         <i class="fa fa-tint" aria-hidden="true"></i>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-3">
+
+                                                                                                                                <div class="form-group form-md-line-input has-success ">
+                                                                                                                                    <div class="input-icon">
+                                                                                                                                        <input id="Pouls" name="Pouls" type="text" class="form-control" placeholder="Pouls" >
+                                                                                                                                        <label for="form_control_1">Pouls</label>
+                                                                                                                                        <span class="help-block">Entrer Pouls</span>
+                                                                                                                                         <i class="fa fa-tint" aria-hidden="true"></i>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-3">
+
+                                                                                                                                <div class="form-group form-md-line-input has-success ">
+                                                                                                                                    <div class="input-icon">
+                                                                                                                                        <input id="Température" name="Température" type="text" class="form-control" placeholder="Température" >
+                                                                                                                                        <label for="form_control_1">Température</label>
+                                                                                                                                        <span class="help-block">Entrer Température</span>
+                                                                                                                                         <i class="fa fa-thermometer" aria-hidden="true"></i>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-3">
+
+                                                                                                                                <div class="form-group form-md-line-input has-success ">
+                                                                                                                                    <div class="input-icon">
+                                                                                                                                        <input id="Poids" name="Poids" type="text" class="form-control" placeholder="Poids" >
+                                                                                                                                        <label for="form_control_1">Poids</label>
+                                                                                                                                        <span class="help-block">Entrer Poids</span>
+                                                                                                                                         <i class="fa fa-anchor" aria-hidden="true"></i>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="row">
+                                                                                                                            <div class="col-md-6">
+                                                                                                                            <div class="form-group form-md-line-input has-success">
+                                                                                                                                <div class="input-icon">
+                                                                                                                                 <textarea id="Exphy" name ="Exphy" class="form-control" rows="3" placeholder="Enter les Détails de l'examen physique"></textarea>
+                                                                                                                                 <label for="form_control_1" class="has-success"> Examen physique </label>
+                                                                                                                                  <span class="help-block">Enter les Détails de l'examen physique </span>
+                                                                                                                                  <i class="fa fa-user-md" aria-hidden="true"></i>
+                                                                                                                                 </div>    
+                                                                                                                             </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-6">
+                                                                                                                            <div class="form-group form-md-line-input has-success">
+                                                                                                                                <div class="input-icon">
+                                                                                                                                 <textarea id="Etgeneral" name ="Etgeneral" class="form-control" rows="3" placeholder="Enter les détails de l'etat Général"></textarea>
+                                                                                                                                 <label for="form_control_1" class="has-success"> Etat Général </label>
+                                                                                                                                  <span class="help-block">Enter les détails de l'etat Général </span>
+                                                                                                                                  <i class="fa fa-user-md" aria-hidden="true"></i>
+                                                                                                                                 </div>    
+                                                                                                                             </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="row">
+                                                                                                                            <div class="col-md-6">
+                                                                                                                            <div class="form-group form-md-line-input has-success">
+                                                                                                                                <div class="input-icon">
+                                                                                                                                 <textarea id="AusCar" name ="AusCar" class="form-control" rows="3" placeholder="Enter les Détails de l'ausculation Caradiaque "></textarea>
+                                                                                                                                 <label for="form_control_1" class="has-success"> Ausculation Caradiaque </label>
+                                                                                                                                  <span class="help-block">Enter les Détails de l'ausculation Caradiaque </span>
+                                                                                                                                  <i class="fa fa-heartbeat" aria-hidden="true"></i>
+                                                                                                                                 </div>    
+                                                                                                                             </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-6">
+                                                                                                                            <div class="form-group form-md-line-input has-success">
+                                                                                                                                <div class="input-icon">
+                                                                                                                                 <textarea id="AusPleuro" name ="AusPleuro" class="form-control" rows="3" placeholder="Enter les détails de l'ausculation Pleuro-plumonaire"></textarea>
+                                                                                                                                 <label for="form_control_1" class="has-success"> Ausculation Pleuro-plumonaire </label>
+                                                                                                                                  <span class="help-block">Enter les détails de l'ausculation Pleuro-plumonaire </span>
+                                                                                                                                  <i class="fa fa-medkit" aria-hidden="true"></i>
+                                                                                                                                 </div>    
+                                                                                                                             </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="row">
+                                                                                                                            <div class="col-md-4">
+                                                                                                                            <div class="form-group form-md-line-input has-success">
+                                                                                                                                <div class="input-icon">
+                                                                                                                                 <textarea id="ExORL" name ="ExORL" class="form-control" rows="3" placeholder="Enter les Détails de l'examen ORL"></textarea>
+                                                                                                                                 <label for="form_control_1" class="has-success"> Examen ORL </label>
+                                                                                                                                  <span class="help-block">Enter les Détails de l'examen ORL </span>
+                                                                                                                                  <i class="fa fa-stethoscope" aria-hidden="true"></i>
+                                                                                                                                 </div>    
+                                                                                                                             </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-4">
+                                                                                                                            <div class="form-group form-md-line-input has-success">
+                                                                                                                                <div class="input-icon">
+                                                                                                                                 <textarea id="AirGan" name ="AirGan" class="form-control" rows="3" placeholder="Enter les détails de l'aires Ganglison-naires"></textarea>
+                                                                                                                                 <label for="form_control_1" class="has-success"> Aires Ganglison-naires </label>
+                                                                                                                                  <span class="help-block">Enter les détails de l'aires Ganglison-naires </span>
+                                                                                                                                  <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                                                                                                                 </div>    
+                                                                                                                             </div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-4">
+                                                                                                                            <div class="form-group form-md-line-input has-success">
+                                                                                                                                <div class="input-icon">
+                                                                                                                                 <textarea id="ExAbd" name ="ExAbd" class="form-control" rows="3" placeholder="Enter les détails de l'examen Abdominal"></textarea>
+                                                                                                                                 <label for="form_control_1" class="has-success"> Examen Abdominal </label>
+                                                                                                                                  <span class="help-block">Enter les détails de l'examen Abdominal </span>
+                                                                                                                                  <i class="fa fa-stethoscope" aria-hidden="true"></i>
+                                                                                                                                 </div>    
+                                                                                                                             </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="tab-pane fade" id="tab_7_2">
+                                                                                                              
+                                                                                                            </div>
+                                                                                                            <div class="tab-pane fade" id="tab_7_3">
+                                                                                                                <div class="row">
+                                                                                                                    <div id="listeActes" class="col-md-6">
+                                                                                                                        
+                                                                                                                    </div>
+                                                                                                                    <div id="listeActesCnam" class="col-md-6">
+                                                                                                                        
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="tab-pane fade" id="tab_7_4">
+                                                                                                                <p> Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art
+                                                                                                                    party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache
+                                                                                                                    readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan. </p>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                                                                                        <ul class="nav nav-tabs tabs-right">
+                                                                                                            <li class="active">
+                                                                                                                <a href="#tab_7_1" data-toggle="tab" aria-expanded="true"> Examen Clinique <span id="nbexam" class="badge badge-danger pull-right"> 0 </span></a>
+                                                                                                                
+                                                                                                            </li>
+                                                                                                            <li class="">
+                                                                                                                <a href="#tab_7_2" data-toggle="tab" aria-expanded="false"> Ordonnance <span id="nbordonn" class="badge badge-danger pull-right"> 0 </span></a>
+                                                                                                            </li>
+                                                                                                            <li class="">
+                                                                                                                <a href="#tab_7_3" data-toggle="tab" aria-expanded="false" > Acte Médical <span id="nbactemedic" class="badge badge-danger pull-right"> 0 </span></a>
+                                                                                                            </li>
+                                                                                                            <li class="">
+                                                                                                                <a href="#tab_7_4" data-toggle="tab" aria-expanded="false"> Bilan <span id="nbbilann" class="badge badge-danger pull-right"> 0 </span></a>
+                                                                                                            </li>
+                                                                                                        </ul>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                               </div>
+                                                                                           </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                       </div>
+                                                                                   </div>
+                                                                               </div>
+                                                                               </div>
+                                                            </div>
 
                                                                 </div>
                     

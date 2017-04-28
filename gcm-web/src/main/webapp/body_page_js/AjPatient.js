@@ -17,6 +17,7 @@ $(function(){
             var Medic =GetListMedicament();
             remplir_Medicament(Medic);
             
+/*commande*/
           $("#hidecnam").click( function (){
               if(!$("#collapse_2").hasClass('in') )
                     $("#hideapci").removeClass('hide');
@@ -356,7 +357,7 @@ $(function(){
                             });
                     });
                     
-                     $("#reset").click(function (){
+            $("#reset").click(function (){
                          if(localStorage.getItem('Consultation')==="true")
                          {
                               window.parent.$.SmartMessageBox({
@@ -453,5 +454,5 @@ $(function(){
                         }else
                             $("#fichelog").attr("src","../img/useradd.png");
               
-            
+/*end*/
 });

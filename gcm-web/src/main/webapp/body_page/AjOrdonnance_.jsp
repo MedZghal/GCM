@@ -91,7 +91,7 @@
                                                                 <th><span contenteditable>Date</span></th>
                                                                 <td><span id="dateOrd" contenteditable></span></td>
                                                         </tr>
-                                                        <tr>
+                                                        <tr class="hide">
                                                                 <th><span contenteditable>Montant</span></th>
                                                                 <td><span  contenteditable>$</span><span id="mntOrd">0.00</span></td>
                                                         </tr>

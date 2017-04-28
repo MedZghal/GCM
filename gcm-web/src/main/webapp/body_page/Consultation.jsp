@@ -63,7 +63,7 @@
                                             <div id="patientprof" class="profile-usertitle-name"> </div>
                                         </div>
                                         <div class="profile-userbuttons">
-                                            <label id="id" class="label label-danger uppercase" data-toggle="collapse" data-target="#details" ></label>&nbsp;
+                                            <label id="id" class="label label-danger uppercase" style="cursor: pointer;" data-toggle="collapse" data-target="#details" ></label>&nbsp;
                                             <span id="cnam" class="popovers"  data-container="body" data-trigger="hover" data-placement="right" data-content="" data-original-title="Assurance CNAM" ></span>&nbsp;
                                             <!--label id="apci" class="label label-info uppercase"></label-->
                                             <span id="apci" class="popovers hide"  data-container="body" data-trigger="hover" data-placement="right" data-content="" data-original-title="Code Taritement APCI"></span>&nbsp;
@@ -80,7 +80,7 @@
                                             <ul class="nav">
                                                 <li>
                                                     <a href="#" id="ArchiMedical">
-                                                        <img src="../img/cardiogram.png" style="width: 20px;" alt="cardiogram">&nbsp; Archives Médicaux 
+                                                        <img src="../img/cardiogram.png" style="width: 20px;" alt="cardiogram">&nbsp; Archive Médical
                                                     <span class="badge badge-info pull-right" > 4 </span></a>
                                                 </li>
                                                 <li class="active">
@@ -94,7 +94,7 @@
                                                     <span id="nbactemedicale" class="badge badge-danger pull-right" > 0 </span></a>
                                                 </li>
                                                  <li>
-                                                    <a href="page_user_profile_1_help.html">
+                                                    <a href="#" id="Courriers">
                                                         <img src="../img/stamp.png" style="width: 20px;" alt="Courriers">&nbsp;  Courriers 
                                                     <span class="badge badge-danger pull-right" > 0 </span></a>
                                                 </li>
@@ -105,7 +105,7 @@
                                                 </li>
                                                 <li>
                                                     <a href="#" id="Hisjsp">
-                                                        <img src="../img/calendar.png" style="width: 20px;" alt="Historique des Soins">&nbsp; Historique des Soins 
+                                                        <img src="../img/calendar.png" style="width: 20px;" alt="Historique des Soins">&nbsp; Consultations 
                                                         <span id="HisSoins" class="badge badge-default pull-right" ></span></a>
                                                 </li>
                                                 
@@ -419,7 +419,7 @@
                                                                             <div class="form-group">
                                                                                 <div class="col-md-10" style="margin-left: 140px;">
                                                                                     <img class="pull-left" src="../img/pill_s.png" style="margin: 5px;" alt="Details">
-                                                                                    <input id="triApci" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Entrer traitements apci"> 
+                                                                                    <input id="triApci_" type="text" class="form-control input-large" value="" data-role="tagsinput" style="height: 250px;" placeholder="Entrer traitements apci"> 
                                                                                 </div>
                                                                             </div>
                                                                     </div>

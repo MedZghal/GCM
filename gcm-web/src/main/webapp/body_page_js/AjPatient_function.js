@@ -41,29 +41,6 @@ function GetListVilleDistinct()
     return reponse;
 }
 
-function GetPatientByNumFichPatient(NumFichPatient)
-{
-    var reponse;
-    $.ajax({
-        url: "../Gestion_Patient?type=consult&function=GetPatientByNumFichPatient&NumFichPatient="+NumFichPatient,
-        type: 'POST',
-        async: false,
-        dataType: "json",
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-        },
-        success: function (data, texStatus, jqXHR)
-        {
-            reponse = data;
-        }
-    });
-    return reponse;
-}
-
-
-
-
-
 function GetListGouvernorat(ville)
 {
     var reponse;
@@ -83,52 +60,25 @@ function GetListGouvernorat(ville)
     return reponse;
 }
 
-function GetTraitementAPCIByNumPatient(NumFichPatient)
-{
-    var reponse;
-    $.ajax({
-        url: "../Gestion_Patient?type=consult&function=GetTraitementAPCIByNumPatient&NumFichPatient="+NumFichPatient,
-        type: 'POST',
-        async: false,
-        dataType: "json",
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-        },
-        success: function (data, texStatus, jqXHR)
-        {
-            reponse = data;
-        }
-    });
-    return reponse;
-}
-
 function remplir_VILLE(data){
     
     var select_html="";
-    select_html+="<option value>&nbsp;&nbsp;&nbsp;&nbsp;sélectionnez Ville </option>";
+    select_html+="<option value>sélectionnez Ville </option>";
     $.each(data , function(i){
-        select_html+="<option value='"+data[i]+"'>&nbsp;&nbsp;&nbsp;&nbsp;"+data[i]+"</option>";
+        select_html+="<option value='"+data[i]+"'>"+data[i]+"</option>";
     });
-    
-    select_html+="<option value>&nbsp;&nbsp;&nbsp;&nbsp;Tous Villes</option>";
-    
     $("#ville").empty().append(select_html);
-    //$("#selectmed").select2();
     
 }
 
 function remplir_Gouvernorat(data){
     
     var select_html="";
-    select_html+="<option value>&nbsp;&nbsp;&nbsp;&nbsp;sélectionnez Gouvernorat </option>";
+    select_html+="<option value>sélectionnez Gouvernorat </option>";
     $.each(data , function(i){
-        select_html+="<option value='"+data[i].gouvernorat+"'>&nbsp;&nbsp;&nbsp;&nbsp;"+data[i].gouvernorat+"</option>";
+        select_html+="<option value='"+data[i].gouvernorat+"'>"+data[i].gouvernorat+"</option>";
     });
-    
-    select_html+="<option value>&nbsp;&nbsp;&nbsp;&nbsp;Tous Gouvernorats</option>";
     $("#Gouvernorat").empty().append(select_html);
-    //$("#Gouvernorat").select2();
-    
 }
 
 function remplir_Medicament(data){

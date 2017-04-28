@@ -120,24 +120,7 @@
             }
     }
 
-function GetListActeMedicauxAllByNumConsult(NumConsult)
-{
-    var reponse;
-    $.ajax({
-        url: "../Consultation?type=consult&function=GetListActeMedicauxAllByNumConsult&NumConsult="+NumConsult,
-        type: 'POST',
-        async: false,
-        dataType: "json",
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-        },
-        success: function (data, texStatus, jqXHR)
-        {
-            reponse = data;
-        }
-    });
-    return reponse;
-}
+
 
 function GetListConsultationByPatient(NumFichPatient)
 {
@@ -269,34 +252,13 @@ function GetListDiagnostic()
 
 function remplir_Diag(data){
     
-    var select_html="";
+    var select_html="<option value=''></option>";
     $.each(data , function(i){
         select_html+="<option value='"+data[i].numDiag+"'>&nbsp;&nbsp;&nbsp;&nbsp;"+data[i].libelle+"</option>";
     });
     $("#Diag").empty().append(select_html);
     
 }
-
-function GetPatientByNumFichPatient(NumFichPatient)
-{
-    var reponse;
-    $.ajax({
-        url: "../Gestion_Patient?type=consult&function=GetPatientByNumFichPatient&NumFichPatient="+NumFichPatient,
-        type: 'POST',
-        async: false,
-        dataType: "json",
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-        },
-        success: function (data, texStatus, jqXHR)
-        {
-            reponse = data;
-        }
-    });
-    return reponse;
-}
-
-
 
 function Antecedents(antecedents,numFichPatient){
     

@@ -23,6 +23,7 @@ $(function(){
     $("#typeConsult").append(ConsultType);
     Consults = JSON.parse(localStorage.getItem("Consults"));  
     $("#id").append('ID : '+numFichPatientConsult);
+    window.parent.$("#nomprenompatientcnam").append(patient.nom + " " +patient.prenom );
     window.parent.$("#nomprenompatient").append(patient.nom + " " +patient.prenom );
     $("#patientname").append(patient.nom + " " +patient.prenom );
     $("#date").append(FUllDateString(GetDateServeur()));
@@ -48,7 +49,7 @@ $(function(){
                 
     var diags =GetListDiagnostic();
                 remplir_Diag(diags);
-                $("#Diag").css("margin-left","20px");
+                $("#select2-Diag-container").css("margin-left","20px");
                 $("[role='combobox']").css("padding-left","20px");
                 $("[role='combobox']").css("background-color","#eef1f5");
                 
@@ -76,6 +77,16 @@ $(function(){
     /*end*/
     
     /*Commande*/
+                $("#Courriers").click(function (){
+                    if(GetConsultationByNum(num_conslt)!==null){
+                        localStorage.setItem("numFichPatient",numFichPatientConsult);
+                        window.parent.$("#menuback").removeClass('hide');
+                        window.location.href='Courriers.jsp';
+                     }
+                    else
+                        window.parent.toastr.error("Attention, la consultation n'est pas encore enregistrée!.",'Error',option);
+                });
+                
                 $("#ArchiMedical").click(function (){
                     localStorage.setItem("numFichPatient",numFichPatientConsult);
                     window.parent.$("#menuback").removeClass('hide');
@@ -92,9 +103,9 @@ $(function(){
                 
                 $("#Ordonnance").click(function (){
                     if(GetConsultationByNum(num_conslt)!==null){
-                    localStorage.setItem("numFichPatient",numFichPatientConsult);
-                    window.parent.$("#menuback").removeClass('hide');
-                    window.location.href='Ordonnance.jsp';
+                        localStorage.setItem("numFichPatient",numFichPatientConsult);
+                        window.parent.$("#menuback").removeClass('hide');
+                        window.location.href='Ordonnance.jsp';
                     }
                     else
                         window.parent.toastr.error("Attention, la consultation n'est pas encore enregistrée!.",'Error',option);
@@ -137,7 +148,7 @@ $(function(){
                     window.parent.$("#menuback").removeClass('hide');
                     window.location.href='HistoriqueSoins.jsp';
                     }else
-                        window.parent.toastr.error("Ce patient n'a aucune consultation ?",'Error',option);
+                        window.parent.toastr.error("Ce patient n'a pas de consultation?",'Error',option);
                 });
                 
                 $("#ArchiMedical").click(function (){
@@ -151,6 +162,7 @@ $(function(){
                         if( $('#FormConsult').valid() ){
 
                                 Antecedents(antecedents,numFichPatientConsult);
+                                
                                 if(patient.assurCnam !== null)
                                     window.parent.$("#confirmeemodal").attr("data-target","#ConsultCnam");
                                 else
@@ -223,7 +235,7 @@ $(function(){
                  var traitapci = GetTraitementAPCIByNumPatient(numFichPatientConsult);
                  if(Object.keys(traitapci).length>0){
                      $.each(traitapci, function (i){
-                         $("#triApci").tagsinput('add',traitapci[i].medicament.desgMedic);
+                         $("#triApci_").tagsinput('add',traitapci[i].medicament.desgMedic);
                      });
                  }
              }else{
@@ -246,7 +258,7 @@ $(function(){
     /*init update mode*/
      if(localStorage.getItem('UpdateConsult')==="true")
             {
-                var consult =JSON.parse(localStorage.getItem("conslt")); 
+                var consult =GetConsultationByNum(num_conslt);
                 localStorage.setItem("num_conslt",consult.numConsult);
                 $("#imgpatient").attr("data-original-title","Consultation N° "+consult.numConsult);
                 $("#date_consult").val(DateMM_DD_YYYY(consult.dateConsult));

@@ -239,7 +239,7 @@
                                                             <div class="panel-title" style="height: 60px">
                                                                 <div class="ribbon ribbon-left ribbon-clip ribbon-shadow ribbon-round ribbon-border-dash-hor ribbon-color-info uppercase" style="font-family: cursive">
                                                                  <div class="ribbon-sub ribbon-clip"></div>
-                                                                 <img src="../img/nurse_.png" alt="cnam">&nbsp; CNAM </div>
+                                                                 <img src="../img/nurse_.png" alt="cnam" style="margin-top: -6px;">&nbsp; CNAM </div>
                                                                  
                                                                  <a>
                                                                  <div id="SuppCnam"  class="ribbon ribbon-right ribbon-vertical-right ribbon-border-dash ribbon-color-danger ribbon-round ribbon-shadow uppercase hide" style="margin-right: 40px">

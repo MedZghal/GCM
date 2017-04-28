@@ -4,24 +4,7 @@
  * and open the template in the editor.
  */
 
-function GetListPrescriptionOrdByNumOrd(Num_Ord)
-{
-    var reponse;
-    $.ajax({
-        url: "../Consultation?type=consult&function=GetListPrescriptionOrdByNumOrd&Num_Ord="+Num_Ord,
-        type: 'POST',
-        async: false,
-        dataType: "json",
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-        },
-        success: function (data, texStatus, jqXHR)
-        {
-            reponse = data;
-        }
-    });
-    return reponse;
-}
+
 
 function GetListOrdonnanceByNum_Consult(num_consult)
 {
@@ -42,24 +25,7 @@ function GetListOrdonnanceByNum_Consult(num_consult)
     return reponse;
 }
 
-function SuppOrdonnance(num_ord)
-{
-    var reponse;
-    $.ajax({
-        url: "../Consultation?type=update&function=SuppOrdonnance&num_ord="+num_ord,
-        type: 'POST',
-        async: false,
-        dataType: "json",
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-        },
-        success: function (data, texStatus, jqXHR)
-        {
-            reponse = data;
-        }
-    });
-    return reponse;
-}
+
 
 function Remplir_Ord(Ord){
      var Ord_html="";
@@ -137,7 +103,6 @@ function SuppOrdConFirmation(num_ord){
                                     var Err =SuppOrdonnance(num_ord);
                                      if(Err.toString()==="true"){
                                         localStorage.setItem("Prescp",JSON.stringify([]));
-                                        //window.location.reload();
                                         var PrOrd=GetConsultationByNum(localStorage.getItem("num_conslt"));
                                         Remplir_Ord(PrOrd);
                                         window.parent.swal("Notification !", "Consultation Supprimé Avec Succès", "success");

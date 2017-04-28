@@ -83,8 +83,6 @@
                                                                          <div class="form-group form-md-line-input has-success ">
                                                                             <div class="input-icon">
                                                                                 <select id="dsgacte" name="dsgacte" class="form-control select2-selection--single">
-                                                                                    <option value="AL">Alabama</option>
-                                                                                    <option value="WY">Wyoming</option>
                                                                                 </select>
                                                                                 <label for="form_control_1">Désignation Acte</label>
                                                                                 <i class="fa fa-medkit" aria-hidden="true"></i>

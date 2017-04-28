@@ -60,24 +60,7 @@ function DeleteJsonDataItemConsult(data,numConsult){
     localStorage.setItem("Consults",JSON.stringify(Consults));
 }
 
-function SuppConsultation(num_consult)
-{
-    var reponse;
-    $.ajax({
-        url: "../Consultation?type=update&function=SuppConsultation&num_consult="+num_consult,
-        type: 'POST',
-        async: false,
-        dataType: "json",
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-        },
-        success: function (data, texStatus, jqXHR)
-        {
-            reponse = data;
-        }
-    });
-    return reponse;
-}
+
 
 function DeleteConsult(Consult){
       window.parent.$.SmartMessageBox({
@@ -89,7 +72,10 @@ function DeleteConsult(Consult){
                                     var Err =SuppConsultation(Consult);
                                      if(Err.toString()==="true"){
                                         DeleteJsonDataItemConsult(Consults,Consult);
-                                        window.location.reload();
+                                        //window.location.reload();
+                                        var Consults = GetListConsultationByPatient(localStorage.getItem("numFichPatient"));
+                                        RemplirTreeHisSoins(Consults);
+                                        treeRefresh();
                                         window.parent.swal("Notification !", "Consultation Supprimé Avec Succès", "success");
                                 }else
                                     window.parent.swal("Notification !!! ", "Suppression erroné", "error");
