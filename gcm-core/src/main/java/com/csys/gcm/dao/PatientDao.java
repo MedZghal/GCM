@@ -48,6 +48,11 @@ public class PatientDao {
         return query.setFirstResult(0).setMaxResults(50).getResultList();
     }
     
+    public List<Patient> GetListPatientByFichPatient(int code_Med_Trit,int numPatient){
+        Query query =em.createNamedQuery("FichPatient.findByFichPatient",FichPatient.class).setParameter("codeMedTrit",code_Med_Trit).setParameter("numPatient",numPatient);
+        return query.setFirstResult(0).setMaxResults(50).getResultList();
+    }
+    
     /**
      *
      * @return

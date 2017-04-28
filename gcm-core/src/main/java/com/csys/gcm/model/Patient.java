@@ -6,10 +6,8 @@
 package com.csys.gcm.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,14 +15,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -52,9 +48,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Patient.findByTypeApci", query = "SELECT p FROM Patient p WHERE p.typeApci = :typeApci"),
     @NamedQuery(name = "Patient.findByDateValid", query = "SELECT p FROM Patient p WHERE p.dateValid = :dateValid")})
 public class Patient implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "numPatient")
-    private Collection<Consultation> consultationCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -331,15 +324,6 @@ public class Patient implements Serializable {
     @Override
     public String toString() {
         return "com.csys.gcm.model.Patient[ numFichPatient=" + numFichPatient + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Consultation> getConsultationCollection() {
-        return consultationCollection;
-    }
-
-    public void setConsultationCollection(Collection<Consultation> consultationCollection) {
-        this.consultationCollection = consultationCollection;
     }
     
 }

@@ -33,11 +33,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Rdv.findAll", query = "SELECT r FROM Rdv r"),
     @NamedQuery(name = "Rdv.findByNumRDV", query = "SELECT r FROM Rdv r WHERE r.numRDV = :numRDV"),
-    @NamedQuery(name = "Rdv.findByDateRDV", query = "SELECT r FROM Rdv r WHERE r.dateRDV = :dateRDV"),
+    @NamedQuery(name = "Rdv.findByNumMedecin", query = "SELECT r FROM Rdv r WHERE r.fichPatient.fichPatientPK.codeMedTrit = :codeMedTrit"),
+    @NamedQuery(name = "Rdv.findByStartDate", query = "SELECT r FROM Rdv r WHERE r.startDate = :startDate"),
     @NamedQuery(name = "Rdv.findByTypeRDV", query = "SELECT r FROM Rdv r WHERE r.typeRDV = :typeRDV"),
-    @NamedQuery(name = "Rdv.findByAlerteRDV", query = "SELECT r FROM Rdv r WHERE r.alerteRDV = :alerteRDV"),
-    @NamedQuery(name = "Rdv.findByEffSonorRDV", query = "SELECT r FROM Rdv r WHERE r.effSonorRDV = :effSonorRDV"),
-    @NamedQuery(name = "Rdv.findByPresence", query = "SELECT r FROM Rdv r WHERE r.presence = :presence")})
+    @NamedQuery(name = "Rdv.findByDescpRDV", query = "SELECT r FROM Rdv r WHERE r.descpRDV = :descpRDV"),
+    @NamedQuery(name = "Rdv.findByPresence", query = "SELECT r FROM Rdv r WHERE r.presence = :presence"),
+    @NamedQuery(name = "Rdv.findByEndDate", query = "SELECT r FROM Rdv r WHERE r.endDate = :endDate")})
 public class Rdv implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,9 +47,9 @@ public class Rdv implements Serializable {
     @NotNull
     @Column(name = "numRDV")
     private Integer numRDV;
-    @Column(name = "dateRDV")
-    @Temporal(TemporalType.DATE)
-    private Date dateRDV;
+    @Column(name = "start_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startDate;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -56,18 +57,16 @@ public class Rdv implements Serializable {
     private String typeRDV;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "AlerteRDV")
-    private String alerteRDV;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "effSonorRDV")
-    private String effSonorRDV;
+    @Size(min = 1, max = 350)
+    @Column(name = "descpRDV")
+    private String descpRDV;
     @Basic(optional = false)
     @NotNull
     @Column(name = "presence")
     private int presence;
+    @Column(name = "end_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDate;
     @JoinColumns({
         @JoinColumn(name = "num_patient", referencedColumnName = "num_patient"),
         @JoinColumn(name = "num_medecin_trait", referencedColumnName = "code_Med_Trit")})
@@ -81,11 +80,10 @@ public class Rdv implements Serializable {
         this.numRDV = numRDV;
     }
 
-    public Rdv(Integer numRDV, String typeRDV, String alerteRDV, String effSonorRDV, int presence) {
+    public Rdv(Integer numRDV, String typeRDV, String descpRDV, int presence) {
         this.numRDV = numRDV;
         this.typeRDV = typeRDV;
-        this.alerteRDV = alerteRDV;
-        this.effSonorRDV = effSonorRDV;
+        this.descpRDV = descpRDV;
         this.presence = presence;
     }
 
@@ -97,12 +95,12 @@ public class Rdv implements Serializable {
         this.numRDV = numRDV;
     }
 
-    public Date getDateRDV() {
-        return dateRDV;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setDateRDV(Date dateRDV) {
-        this.dateRDV = dateRDV;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public String getTypeRDV() {
@@ -113,20 +111,12 @@ public class Rdv implements Serializable {
         this.typeRDV = typeRDV;
     }
 
-    public String getAlerteRDV() {
-        return alerteRDV;
+    public String getDescpRDV() {
+        return descpRDV;
     }
 
-    public void setAlerteRDV(String alerteRDV) {
-        this.alerteRDV = alerteRDV;
-    }
-
-    public String getEffSonorRDV() {
-        return effSonorRDV;
-    }
-
-    public void setEffSonorRDV(String effSonorRDV) {
-        this.effSonorRDV = effSonorRDV;
+    public void setDescpRDV(String descpRDV) {
+        this.descpRDV = descpRDV;
     }
 
     public int getPresence() {
@@ -135,6 +125,14 @@ public class Rdv implements Serializable {
 
     public void setPresence(int presence) {
         this.presence = presence;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public FichPatient getFichPatient() {

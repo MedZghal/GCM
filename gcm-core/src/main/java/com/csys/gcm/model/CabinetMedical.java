@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CabinetMedical.findByEmail", query = "SELECT c FROM CabinetMedical c WHERE c.email = :email"),
     @NamedQuery(name = "CabinetMedical.findByTitre", query = "SELECT c FROM CabinetMedical c WHERE c.titre = :titre"),
     @NamedQuery(name = "CabinetMedical.findBySpecialite", query = "SELECT c FROM CabinetMedical c WHERE c.specialite = :specialite"),
-    @NamedQuery(name = "CabinetMedical.findByConvent", query = "SELECT c FROM CabinetMedical c WHERE c.convent = :convent"),
+    @NamedQuery(name = "CabinetMedical.findByGouvernorat", query = "SELECT c FROM CabinetMedical c WHERE c.gouvernorat = :gouvernorat"),
     @NamedQuery(name = "CabinetMedical.findByCodeConvent", query = "SELECT c FROM CabinetMedical c WHERE c.codeConvent = :codeConvent"),
     @NamedQuery(name = "CabinetMedical.findByTiketModer", query = "SELECT c FROM CabinetMedical c WHERE c.tiketModer = :tiketModer"),
     @NamedQuery(name = "CabinetMedical.findByTvaConsult", query = "SELECT c FROM CabinetMedical c WHERE c.tvaConsult = :tvaConsult"),
@@ -115,8 +115,9 @@ public class CabinetMedical implements Serializable {
     private String specialite;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "convent")
-    private int convent;
+    @Size(min = 1, max = 50)
+    @Column(name = "gouvernorat")
+    private String gouvernorat;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 12)
@@ -158,7 +159,7 @@ public class CabinetMedical implements Serializable {
         this.numCab = numCab;
     }
 
-    public CabinetMedical(Integer numCab, String nomMedecin, String prenomMedecin, String salutation, String numInscpOrdMed, String adresse, String fixe, String gsm, String email, String titre, String specialite, int convent, String codeConvent, double tiketModer, double tvaConsult, double montantConsult, String typeConsult, String mntconsultSansConv) {
+    public CabinetMedical(Integer numCab, String nomMedecin, String prenomMedecin, String salutation, String numInscpOrdMed, String adresse, String fixe, String gsm, String email, String titre, String specialite, String gouvernorat, String codeConvent, double tiketModer, double tvaConsult, double montantConsult, String typeConsult, String mntconsultSansConv) {
         this.numCab = numCab;
         this.nomMedecin = nomMedecin;
         this.prenomMedecin = prenomMedecin;
@@ -170,7 +171,7 @@ public class CabinetMedical implements Serializable {
         this.email = email;
         this.titre = titre;
         this.specialite = specialite;
-        this.convent = convent;
+        this.gouvernorat = gouvernorat;
         this.codeConvent = codeConvent;
         this.tiketModer = tiketModer;
         this.tvaConsult = tvaConsult;
@@ -275,12 +276,12 @@ public class CabinetMedical implements Serializable {
         this.specialite = specialite;
     }
 
-    public int getConvent() {
-        return convent;
+    public String getGouvernorat() {
+        return gouvernorat;
     }
 
-    public void setConvent(int convent) {
-        this.convent = convent;
+    public void setGouvernorat(String gouvernorat) {
+        this.gouvernorat = gouvernorat;
     }
 
     public String getCodeConvent() {

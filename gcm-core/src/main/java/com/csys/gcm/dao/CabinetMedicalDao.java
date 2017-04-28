@@ -7,6 +7,7 @@ package com.csys.gcm.dao;
 
 import com.csys.gcm.model.CabinetMedical;
 import com.csys.gcm.model.Param;
+import com.csys.gcm.model.SalleAttente;
 import com.csys.gcm.model.Utilisateur;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,6 +43,12 @@ public class CabinetMedicalDao {
         List<CabinetMedical> elementList = query.getResultList();
         return CollectionUtils.isEmpty(elementList ) ? null : elementList.get(0);
     }
+     
+     public List<SalleAttente> GetListSallebyCodeMedTrit(int codeMedTrit){
+        Utilisateur u = GetUtilisateurbyCodeMedTrit(codeMedTrit);
+        Query query =em.createNamedQuery("SalleAttente.findByNumMedecin",SalleAttente.class).setParameter("numMedcTrait",u);
+        return query.setFirstResult(0).setMaxResults(50).getResultList();
+    }
     
      public Utilisateur GetUtilisateurbyCodeMedTrit(int codeMedTrit){
         Query query =em.createNamedQuery("Utilisateur.findByCodeMedTrit",Utilisateur.class).setParameter("codeMedTrit",codeMedTrit);
@@ -51,6 +58,11 @@ public class CabinetMedicalDao {
      
      public List<Utilisateur> GetListUtilisateur(){
         Query query =em.createNamedQuery("Utilisateur.findAll",Utilisateur.class);
+        return query.setFirstResult(0).setMaxResults(50).getResultList();
+    }
+     
+    public List<Utilisateur> GetListUtilisateurByMedecin(String secretaire_medecin){
+        Query query =em.createNamedQuery("Utilisateur.findBySecretaire",Utilisateur.class).setParameter("secretaire", secretaire_medecin);
         return query.setFirstResult(0).setMaxResults(50).getResultList();
     }
     
@@ -64,14 +76,26 @@ public class CabinetMedicalDao {
         List<Integer> elementList = query.getResultList();
         return CollectionUtils.isEmpty(elementList ) ? null : elementList.get(0);
     }
+      
+      public int GetMaxUtilisateur(){
+        Query query =em.createNamedQuery("Utilisateur.findMax",Utilisateur.class);
+        List<Integer> elementList = query.getResultList();
+        return CollectionUtils.isEmpty(elementList ) ? null : elementList.get(0);
+    }
+      
+      public int GetMinUtilisateur(){
+        Query query =em.createNamedQuery("Utilisateur.findMin",Utilisateur.class);
+        List<Integer> elementList = query.getResultList();
+        return CollectionUtils.isEmpty(elementList ) ? null : elementList.get(0);
+    }
     
-    public String AjParametre(String nom_medecin ,String prenom_medecin,Date date_naiss,String salutation,String num_inscp_ord_med,String adresse ,String ville,String Fixe,String GSM ,String email, String titre, String specialite, int convent,String code_convent , double tiket_moder,double tva_consult,double montant_consult, String type_consult,String mnt_consultSansConv,int code_Med_Trit ) {
+    public String AjParametre(String nom_medecin ,String prenom_medecin,Date date_naiss,String salutation,String num_inscp_ord_med,String adresse ,String ville,String Fixe,String GSM ,String email, String titre, String specialite, String gouvernorat,String code_convent , double tiket_moder,double tva_consult,double montant_consult, String type_consult,String mnt_consultSansConv,int code_Med_Trit ) {
         
          Connection conn=myconn.getConnection();
          String Err="true";
          int n = 0;
          try{
-             String requete = "insert into Cabinet_Medical(nom_medecin,prenom_medecin,date_naiss,salutation,num_inscp_ord_med,adresse,ville,Fixe,GSM,email,titre,specialite,convent,code_convent,tiket_moder,tva_consult,montant_consult,type_consult,mnt_consultSansConv,code_Med_Trit) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+             String requete = "insert into Cabinet_Medical(nom_medecin,prenom_medecin,date_naiss,salutation,num_inscp_ord_med,adresse,ville,Fixe,GSM,email,titre,specialite,gouvernorat,code_convent,tiket_moder,tva_consult,montant_consult,type_consult,mnt_consultSansConv,code_Med_Trit) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
              try (PreparedStatement pstmt = conn.prepareStatement(requete)) {
                  
                  pstmt.setString(1,nom_medecin);
@@ -86,7 +110,7 @@ public class CabinetMedicalDao {
                  pstmt.setString(10,email);
                  pstmt.setString(11,titre);
                  pstmt.setString(12,specialite);
-                 pstmt.setInt(13,convent);
+                 pstmt.setString(13,gouvernorat);
                  pstmt.setString(14,code_convent);
                  pstmt.setDouble(15,tiket_moder);
                  pstmt.setDouble(16,tva_consult);
@@ -176,19 +200,54 @@ public class CabinetMedicalDao {
          return Err ;
     
     }
-     public String AjUtilisateur(String username,String pass,String type,int code_Med_Trit) {
+     public String AjUtilisateur(String username,String pass,String type,int code_Med_Trit,String secretaire) {
         
          Connection conn=myconn.getConnection();
          String Err="true";
          int n = 0;
          try{
-             String requete = "insert into Utilisateur(username,pass,type,code_Med_Trit) values(?,?,?,?)";
+             String requete = "insert into Utilisateur(username,pass,type,code_Med_Trit,secretaire) values(?,?,?,?,?)";
              try (PreparedStatement pstmt = conn.prepareStatement(requete)) {
                  
                  pstmt.setString(1,username);
                  pstmt.setString(2,pass);
                  pstmt.setString(3,type);
                  pstmt.setInt(4,code_Med_Trit);
+                 pstmt.setString(5,secretaire);
+                 
+                 n=pstmt.executeUpdate();
+                 pstmt.close();
+             }
+             
+         }catch(SQLException EX){
+             System.err.printf(EX.getMessage());
+             Err=EX.getMessage()+"";
+            }finally{
+             if(conn!=null){
+                 try{
+                     conn.close();
+                 }catch(SQLException EX){
+                 }
+             }
+         }
+    
+         return Err ;
+    
+    }
+     
+     public String AjSalle_Attente(int num_patient,int num_rdv,String note,int num_medc_trait) {
+        
+         Connection conn=myconn.getConnection();
+         String Err="true";
+         int n = 0;
+         try{
+             String requete = "insert into Salle_Attente(num_patient,num_rdv,note,num_medc_trait) values(?,?,?,?)";
+             try (PreparedStatement pstmt = conn.prepareStatement(requete)) {
+                 
+                 pstmt.setInt(1,num_patient);
+                 pstmt.setInt(2,num_rdv);
+                 pstmt.setString(3,note);
+                 pstmt.setInt(4,num_medc_trait);
                  
                  n=pstmt.executeUpdate();
                  pstmt.close();
@@ -235,6 +294,30 @@ public class CabinetMedicalDao {
     
     }
      
+      public boolean SuppSalleAttente  (int num_ligneAttend ) {
+         Connection conn=myconn.getConnection();
+         int n = 0;
+         try{
+             try (Statement stm = conn.createStatement()) { 
+                 String query ="delete from Salle_Attente where num_ligneAttend="+num_ligneAttend;
+                 n=stm.executeUpdate(query);
+                 stm.close();
+             }
+             
+         }catch(SQLException EX){
+             System.err.printf(EX.getMessage());
+            }finally{
+             if(conn!=null){
+                 try{
+                     conn.close();
+                 }catch(SQLException EX){
+                 }
+             }
+         }
+    
+         return n>0 ;
+      }
+     
       public boolean SuppUtilisateur  (String pseudo) {
          Connection conn=myconn.getConnection();
          int n = 0;
@@ -260,13 +343,13 @@ public class CabinetMedicalDao {
     
     }
      
-     public String UpdateParametre(int num_cab ,String nom_medecin ,String prenom_medecin,Date date_naiss,String salutation,String num_inscp_ord_med,String adresse ,String ville,String Fixe,String GSM ,String email, String titre, String specialite, int convent,String code_convent , double tiket_moder,double tva_consult,double montant_consult, String type_consult,String mnt_consultSansConv ) {
+     public String UpdateParametre(int num_cab ,String nom_medecin ,String prenom_medecin,Date date_naiss,String salutation,String num_inscp_ord_med,String adresse ,String ville,String Fixe,String GSM ,String email, String titre, String specialite, String gouvernorat,String code_convent , double tiket_moder,double tva_consult,double montant_consult, String type_consult,String mnt_consultSansConv ) {
         
          Connection conn=myconn.getConnection();
          String Err="true";
          int n = 0;
          try{
-             String requete = "update Cabinet_Medical set nom_medecin=? ,prenom_medecin=?,date_naiss=? ,salutation=?,num_inscp_ord_med=?,adresse=?,ville=?,Fixe=?,GSM=?,email=?,titre=?,specialite=?,convent=?,code_convent=?,tiket_moder=?,tva_consult=?,montant_consult=?,type_consult=?,mnt_consultSansConv=? where num_cab=?";
+             String requete = "update Cabinet_Medical set nom_medecin=? ,prenom_medecin=?,date_naiss=? ,salutation=?,num_inscp_ord_med=?,adresse=?,ville=?,Fixe=?,GSM=?,email=?,titre=?,specialite=?,gouvernorat=?,code_convent=?,tiket_moder=?,tva_consult=?,montant_consult=?,type_consult=?,mnt_consultSansConv=? where num_cab=?";
              try (PreparedStatement pstmt = conn.prepareStatement(requete)) {
                  
                  pstmt.setString(1,nom_medecin);
@@ -281,7 +364,7 @@ public class CabinetMedicalDao {
                  pstmt.setString(10,email);
                  pstmt.setString(11,titre);
                  pstmt.setString(12,specialite);
-                 pstmt.setInt(13,convent);
+                 pstmt.setString(13,gouvernorat);
                  pstmt.setString(14,code_convent);
                  pstmt.setDouble(15,tiket_moder);
                  pstmt.setDouble(16,tva_consult);

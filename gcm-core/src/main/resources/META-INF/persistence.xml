@@ -26,16 +26,18 @@
     <class>com.csys.gcm.model.Ville</class>
     <class>com.csys.gcm.model.TraitementAPCI</class>
     <class>com.csys.gcm.model.AssuranceCNAM</class>
-    <class>com.csys.gcm.model.CabinetMedical</class>
     <class>com.csys.gcm.model.DossierPatientPartage</class>
     <class>com.csys.gcm.model.MotifConsult</class>
     <class>com.csys.gcm.model.Motif</class>
     <class>com.csys.gcm.model.FichPatient</class>
-    <class>com.csys.gcm.model.Rdv</class>
-    <class>com.csys.gcm.model.Utilisateur</class>
-    <class>com.csys.gcm.model.Patient</class>
     <class>com.csys.gcm.model.Ordonnance</class>
     <class>com.csys.gcm.model.Consultation</class>
+    <class>com.csys.gcm.model.CabinetMedical</class>
+    <class>com.csys.gcm.model.Utilisateur</class>
+    <class>com.csys.gcm.model.Salledattente_1</class>
+    <class>com.csys.gcm.model.SalleAttente</class>
+    <class>com.csys.gcm.model.Rdv</class>
+    <class>com.csys.gcm.model.Patient</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
     <validation-mode>NONE</validation-mode>

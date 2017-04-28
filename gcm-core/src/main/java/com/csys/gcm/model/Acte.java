@@ -25,7 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "Acte")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Acte.findAll", query = "SELECT a FROM Acte a"),
+    @NamedQuery(name = "Acte.findAll", query = "SELECT a FROM Acte a where a.typ='CNAM'"),
+    @NamedQuery(name = "Acte.findMax", query = "SELECT MAX(a.numActe) FROM Acte a"),
+    @NamedQuery(name = "Acte.findAllNonRemb", query = "SELECT a FROM Acte a where a.typ!='CNAM'"),
     @NamedQuery(name = "Acte.findByNumActe", query = "SELECT a FROM Acte a WHERE a.numActe = :numActe"),
     @NamedQuery(name = "Acte.findByLibelle", query = "SELECT a FROM Acte a WHERE a.libelle = :libelle"),
     @NamedQuery(name = "Acte.findByAccord", query = "SELECT a FROM Acte a WHERE a.accord = :accord"),

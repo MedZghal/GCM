@@ -48,6 +48,7 @@ import com.csys.gcm.model.Patient;
 import com.csys.gcm.model.PrescriptionOrd;
 import com.csys.gcm.model.Rdv;
 import com.csys.gcm.model.Recette;
+import com.csys.gcm.model.SalleAttente;
 import com.csys.gcm.model.TraitementAPCI;
 import com.csys.gcm.model.Utilisateur;
 import com.csys.gcm.model.Ville;
@@ -86,6 +87,17 @@ public class GcmEventWS {
     @WebMethod(operationName = "GetListPatientByMedecin")
     public List<Patient> GetListPatientByMedecin(@WebParam(name = "code_Med_Trit") int code_Med_Trit)  {
         return new PatientDao().GetListPatientByMedecin(code_Med_Trit);
+    }
+    
+    /**
+     *
+     * @param code_Med_Trit
+     * @param numPatient
+     * @return
+     */
+    @WebMethod(operationName = "GetListPatientByFichPatient")
+    public List<Patient> GetListPatientByFichPatient(@WebParam(name = "code_Med_Trit") int code_Med_Trit,@WebParam(name = "numPatient") int numPatient)  {
+        return new PatientDao().GetListPatientByFichPatient(code_Med_Trit, numPatient);
     }
     
     @WebMethod(operationName = "GetDateServeur")
@@ -295,12 +307,58 @@ public class GcmEventWS {
     
     /**
      *
+     * @return
+     */
+    @WebMethod(operationName = "GetMaxActe")
+    public int GetMaxActe()  {
+        return new ActeDao().GetMaxActe();
+    }
+    /**
+     *
+     * @return
+     */
+    @WebMethod(operationName = "GetListActeNonRemborsable")
+    public List<Acte> GetListActeNonRemborsable()  {
+        return new ActeDao().GetListActeNonRemborsable();
+    }
+    
+    /**
+     *
+     * @param Libelle
+     * @return
+     */
+    @WebMethod(operationName = "GetActeNonRemborsablebyLibelle")
+    public Acte GetActeNonRemborsablebyLibelle(@WebParam(name = "Libelle") String Libelle)  {
+        return new ActeDao().GetActeNonRemborsablebyLibelle(Libelle);
+    }
+    /**
+     *
      * @param num_consult
      * @return
      */
     @WebMethod(operationName = "GetListActeMedicauxByNumConsult")
     public List<ActeMedicaux> GetListActeMedicauxByNumConsult(@WebParam(name = "num_consult") int num_consult)  {
         return new ActeDao().GetListActeMedicauxByNumConsult(num_consult);
+    }
+    
+    /**
+     *
+     * @param num_consult
+     * @return
+     */
+    @WebMethod(operationName = "GetListActeMedicauxAllByNumConsult")
+    public List<ActeMedicaux> GetListActeMedicauxAllByNumConsult(@WebParam(name = "num_consult") int num_consult)  {
+        return new ActeDao().GetListActeMedicauxAllByNumConsult(num_consult);
+    }
+    
+    /**
+     *
+     * @param num_consult
+     * @return
+     */
+    @WebMethod(operationName = "GetListActeMedicauxNonRembByNumConsult")
+    public List<ActeMedicaux> GetListActeMedicauxNonRembByNumConsult(@WebParam(name = "num_consult") int num_consult)  {
+        return new ActeDao().GetListActeMedicauxNonRembByNumConsult(num_consult);
     }
     /**
      *
@@ -356,33 +414,43 @@ public class GcmEventWS {
     
     /**
      *
-     * @param date
-     * @param typ
-     * @param Alert
-     * @param sonor
-     * @param pres
-     * @param Codpat
+     * @param numMedecinTrait
+     * @return
+     */
+    @WebMethod(operationName = "GetListRdvByNumMedecin")
+    public List<Rdv> GetListRdvByNumMedecin(@WebParam(name = "numMedecinTrait") int numMedecinTrait)  {
+        return new RdvDao().GetListRdvByNumMedecin(numMedecinTrait);
+    }
+    /**
+     *
+     * @param start_date  
+     * @param typeRDV  
+     * @param descpRDV  
+     * @param presence  
+     * @param num_patient  
+     * @param end_date  
+     * @param num_medecin_trait  
      * @return
      */
     @WebMethod(operationName = "AjRdv")
-    public String AjRdv(@WebParam(name = "date") Date date ,@WebParam(name = "type") String typ ,@WebParam(name = "alerte") String Alert,@WebParam(name = "sonor") String sonor,@WebParam(name = "presence") int pres,@WebParam(name = "patient") int Codpat) {
-        return new RdvDao().AjRdv(date, typ, Alert, sonor, pres, Codpat);
+    public String AjRdv(@WebParam(name = "start_date") Date start_date ,@WebParam(name = "typeRDV") String typeRDV ,@WebParam(name = "descpRDV") String descpRDV,@WebParam(name = "presence") int presence,@WebParam(name = "num_patient") int num_patient,@WebParam(name = "num_medecin_trait") int num_medecin_trait,@WebParam(name = "end_date") Date end_date) {
+        return new RdvDao().AjRdv(start_date,typeRDV,descpRDV,presence,num_patient,num_medecin_trait,end_date);
     }
     
     /**
      *
      * @param numRdv
-     * @param date
+     * @param start_date
      * @param typ
-     * @param Alert
-     * @param sonor
+     * @param descpRDV
      * @param pres
      * @param Codpat
+     * @param end_date
      * @return
      */
     @WebMethod(operationName = "UpdateRdv")
-    public String UpdateRdv(@WebParam(name = "num") String numRdv,@WebParam(name = "date") Date date ,@WebParam(name = "type") String typ ,@WebParam(name = "alerte") String Alert,@WebParam(name = "sonor") String sonor,@WebParam(name = "presence") int pres,@WebParam(name = "patient") int Codpat) {
-         return new RdvDao().UpdateRdv(numRdv, date, typ, Alert, sonor, pres, Codpat);
+    public String UpdateRdv(@WebParam(name = "numRdv") int numRdv,@WebParam(name = "start_date") Date start_date ,@WebParam(name = "type") String typ ,@WebParam(name = "descpRDV") String descpRDV,@WebParam(name = "presence") int pres,@WebParam(name = "patient") int Codpat,@WebParam(name = "end_date") Date end_date) {
+         return new RdvDao().UpdateRdv(numRdv, start_date, typ, descpRDV, pres, Codpat, end_date);
     }
     
     /**
@@ -445,6 +513,39 @@ public class GcmEventWS {
     
     /**
      *
+     * @param codeMedTrit
+     * @return
+     */
+    @WebMethod(operationName = "GetListSallebyCodeMedTrit")
+    public List<SalleAttente> GetListSallebyCodeMedTrit(@WebParam(name = "codeMedTrit") int codeMedTrit)  {
+        return new CabinetMedicalDao().GetListSallebyCodeMedTrit(codeMedTrit);
+    }
+    
+    /**
+     *
+     * @param num_patient
+     * @param num_rdv
+     * @param note
+     * @param num_medc_trait
+     * @return
+     */
+    @WebMethod(operationName = "AjSalle_Attente")
+    public String AjSalle_Attente(@WebParam(name = "num_patient") int num_patient,@WebParam(name = "num_rdv") int num_rdv ,@WebParam(name = "note") String note,@WebParam(name = "num_medc_trait") int num_medc_trait) {
+        return new CabinetMedicalDao().AjSalle_Attente(num_patient,num_rdv, note, num_medc_trait);
+    }
+    
+    /**
+     *
+     * @param num_ligneAttend
+     * @return
+     */
+    @WebMethod(operationName = "SuppSalleAttente")
+    public boolean SuppSalleAttente(@WebParam(name = "num_ligneAttend") int num_ligneAttend) {
+         return new CabinetMedicalDao().SuppSalleAttente(num_ligneAttend);
+    }
+    
+    /**
+     *
      * @return
      */
     @WebMethod(operationName = "GetParametre")
@@ -461,6 +562,8 @@ public class GcmEventWS {
     public CabinetMedical GetParemetrebyCodeMedTrit(@WebParam(name = "codeMedTrit") int codeMedTrit)  {
         return new CabinetMedicalDao().GetParemetrebyCodeMedTrit(codeMedTrit);
     }
+    
+    
     /**
      *
      * @param nom_medecin
@@ -475,7 +578,7 @@ public class GcmEventWS {
      * @param email
      * @param titre
      * @param specialite
-     * @param convent
+     * @param gouvernorat
      * @param code_convent
      * @param tiket_moder
      * @param tva_consult
@@ -486,8 +589,8 @@ public class GcmEventWS {
      * @return
      */
     @WebMethod(operationName = "AjParametre")
-    public String AjParametre(@WebParam(name = "nom_medecin") String nom_medecin ,@WebParam(name = "prenom_medecin") String prenom_medecin,@WebParam(name = "DateNais_medecin") Date date_naiss,@WebParam(name = "salutation_medecin") String salutation,@WebParam(name = "num_inscp_ord_medecin") String num_inscp_ord_med,@WebParam(name = "adresse") String adresse ,@WebParam(name = "ville") String ville,@WebParam(name = "fixe") String Fixe,@WebParam(name = "gsm") String GSM ,@WebParam(name = "email") String email,@WebParam(name = "titre") String titre,@WebParam(name = "spec") String specialite,@WebParam(name = "conv") int convent,@WebParam(name = "code_conv") String code_convent ,@WebParam(name = "tiket_M") double tiket_moder,@WebParam(name = "tva") double tva_consult,@WebParam(name = "Mnt_consult") double montant_consult,@WebParam(name = "typ_consult") String type_consult,@WebParam(name = "Mnt_consult_Sconv") String mnt_consultSansConv ,@WebParam(name = "code_Med_Trit") int code_Med_Trit ) {
-        return new CabinetMedicalDao().AjParametre(nom_medecin, prenom_medecin, date_naiss, salutation, num_inscp_ord_med, adresse, ville, Fixe, GSM, email, titre, specialite, convent, code_convent, tiket_moder, tva_consult, montant_consult, type_consult, mnt_consultSansConv,code_Med_Trit);
+    public String AjParametre(@WebParam(name = "nom_medecin") String nom_medecin ,@WebParam(name = "prenom_medecin") String prenom_medecin,@WebParam(name = "DateNais_medecin") Date date_naiss,@WebParam(name = "salutation_medecin") String salutation,@WebParam(name = "num_inscp_ord_medecin") String num_inscp_ord_med,@WebParam(name = "adresse") String adresse ,@WebParam(name = "ville") String ville,@WebParam(name = "fixe") String Fixe,@WebParam(name = "gsm") String GSM ,@WebParam(name = "email") String email,@WebParam(name = "titre") String titre,@WebParam(name = "spec") String specialite,@WebParam(name = "gouvernorat") String gouvernorat,@WebParam(name = "code_conv") String code_convent ,@WebParam(name = "tiket_M") double tiket_moder,@WebParam(name = "tva") double tva_consult,@WebParam(name = "Mnt_consult") double montant_consult,@WebParam(name = "typ_consult") String type_consult,@WebParam(name = "Mnt_consult_Sconv") String mnt_consultSansConv ,@WebParam(name = "code_Med_Trit") int code_Med_Trit ) {
+        return new CabinetMedicalDao().AjParametre(nom_medecin, prenom_medecin, date_naiss, salutation, num_inscp_ord_med, adresse, ville, Fixe, GSM, email, titre, specialite, gouvernorat, code_convent, tiket_moder, tva_consult, montant_consult, type_consult, mnt_consultSansConv,code_Med_Trit);
     }
     
     /**
@@ -505,7 +608,7 @@ public class GcmEventWS {
      * @param email
      * @param titre
      * @param specialite
-     * @param convent
+     * @param gouvernorat
      * @param code_convent
      * @param tiket_moder
      * @param tva_consult
@@ -515,8 +618,8 @@ public class GcmEventWS {
      * @return
      */
     @WebMethod(operationName = "UpdateParametre")
-    public String UpdateParametre(@WebParam(name = "num") int numParam,@WebParam(name = "nom_medecin") String nom_medecin ,@WebParam(name = "prenom_medecin") String prenom_medecin,@WebParam(name = "DateNais_medecin") Date date_naiss,@WebParam(name = "salutation_medecin") String salutation,@WebParam(name = "num_inscp_ord_medecin") String num_inscp_ord_med,@WebParam(name = "adresse") String adresse ,@WebParam(name = "ville") String ville,@WebParam(name = "fixe") String Fixe,@WebParam(name = "gsm") String GSM ,@WebParam(name = "email") String email,@WebParam(name = "titre") String titre,@WebParam(name = "spec") String specialite,@WebParam(name = "conv") int convent,@WebParam(name = "code_conv") String code_convent ,@WebParam(name = "tiket_M") double tiket_moder,@WebParam(name = "tva") double tva_consult,@WebParam(name = "Mnt_consult") double montant_consult,@WebParam(name = "typ_consult") String type_consult,@WebParam(name = "Mnt_consult_Sconv") String mnt_consultSansConv ) {
-         return new CabinetMedicalDao().UpdateParametre(numParam, nom_medecin, prenom_medecin, date_naiss, salutation, num_inscp_ord_med, adresse, ville, Fixe, GSM, email, titre, specialite, convent, code_convent, tiket_moder, tva_consult, montant_consult, type_consult, mnt_consultSansConv);
+    public String UpdateParametre(@WebParam(name = "num") int numParam,@WebParam(name = "nom_medecin") String nom_medecin ,@WebParam(name = "prenom_medecin") String prenom_medecin,@WebParam(name = "DateNais_medecin") Date date_naiss,@WebParam(name = "salutation_medecin") String salutation,@WebParam(name = "num_inscp_ord_medecin") String num_inscp_ord_med,@WebParam(name = "adresse") String adresse ,@WebParam(name = "ville") String ville,@WebParam(name = "fixe") String Fixe,@WebParam(name = "gsm") String GSM ,@WebParam(name = "email") String email,@WebParam(name = "titre") String titre,@WebParam(name = "spec") String specialite,@WebParam(name = "gouvernorat") String gouvernorat,@WebParam(name = "code_conv") String code_convent ,@WebParam(name = "tiket_M") double tiket_moder,@WebParam(name = "tva") double tva_consult,@WebParam(name = "Mnt_consult") double montant_consult,@WebParam(name = "typ_consult") String type_consult,@WebParam(name = "Mnt_consult_Sconv") String mnt_consultSansConv ) {
+         return new CabinetMedicalDao().UpdateParametre(numParam, nom_medecin, prenom_medecin, date_naiss, salutation, num_inscp_ord_med, adresse, ville, Fixe, GSM, email, titre, specialite, gouvernorat, code_convent, tiket_moder, tva_consult, montant_consult, type_consult, mnt_consultSansConv);
     }
     
     /**
@@ -886,6 +989,17 @@ public class GcmEventWS {
     
     /**
      *
+     * @param num_consult_old
+     * @param num_consult_New
+     * @return
+     */
+    @WebMethod(operationName = "UpdateActeMedicauxbyNum_Consult")
+    public String UpdateActeMedicauxbyNum_Consult(@WebParam(name = "num_consult_old") int num_consult_old,@WebParam(name = "num_consult_New") int num_consult_New) {
+         return new ActeDao().UpdateActeMedicauxbyNum_Consult(num_consult_old, num_consult_New);
+    }
+    
+    /**
+     *
      * @param acte
      * @param consult
      * @return
@@ -893,6 +1007,16 @@ public class GcmEventWS {
     @WebMethod(operationName = "SuppActeMedicaux")
     public boolean SuppActeMedicaux(@WebParam(name = "num_acte") String acte,@WebParam(name = "num_consult") String consult) {
          return new ActeDao().SuppActeMedicaux(acte, consult);
+    }
+    
+    /**
+     *
+     * @param num_consult
+     * @return
+     */
+    @WebMethod(operationName = "SuppActeMedicauxbyNum_Consult")
+    public boolean SuppActeMedicauxbyNum_Consult(@WebParam(name = "num_consult") int num_consult) {
+         return new ActeDao().SuppActeMedicauxbyNum_Consult(num_consult);
     }
     
     /**
@@ -1120,9 +1244,33 @@ public class GcmEventWS {
      *
      * @return
      */
+    @WebMethod(operationName = "GetMaxUtilisateur")
+    public int GetMaxUtilisateur()  {
+        return new CabinetMedicalDao().GetMaxUtilisateur();
+    }
+    
+    /**
+     *
+     * @return
+     */
+    @WebMethod(operationName = "GetMinUtilisateur")
+    public int GetMinUtilisateur()  {
+        return new CabinetMedicalDao().GetMinUtilisateur();
+    }
+    
     @WebMethod(operationName = "GetListUtilisateur")
     public List<Utilisateur> GetListUtilisateur()  {
         return new CabinetMedicalDao().GetListUtilisateur();
+    }
+    
+    /**
+     *
+     * @param secretaire_medecin
+     * @return
+     */
+    @WebMethod(operationName = "GetListUtilisateurByMedecin")
+    public List<Utilisateur> GetListUtilisateurByMedecin(@WebParam(name = "secretaire_medecin") String secretaire_medecin)  {
+        return new CabinetMedicalDao().GetListUtilisateurByMedecin(secretaire_medecin);
     }
     
     /**
@@ -1131,11 +1279,12 @@ public class GcmEventWS {
      * @param pass
      * @param type
      * @param code_Med_Trit
+     * @param secretaire
      * @return
      */
     @WebMethod(operationName = "AjUtilisateur")
-    public String AjUtilisateur(@WebParam(name = "username") String username,@WebParam(name = "pass") String pass,@WebParam(name = "type") String type,@WebParam(name = "code_Med_Trit") int code_Med_Trit) {
-        return new CabinetMedicalDao().AjUtilisateur(username, pass, type,code_Med_Trit);
+    public String AjUtilisateur(@WebParam(name = "username") String username,@WebParam(name = "pass") String pass,@WebParam(name = "type") String type,@WebParam(name = "code_Med_Trit") int code_Med_Trit,@WebParam(name = "secretaire") String secretaire) {
+        return new CabinetMedicalDao().AjUtilisateur(username, pass, type,code_Med_Trit,secretaire);
     }
     
     @WebMethod(operationName = "UpdateUtilisateur")

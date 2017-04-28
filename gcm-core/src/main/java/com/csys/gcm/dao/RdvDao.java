@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package com.csys.gcm.dao;
-
 import com.csys.gcm.model.Rdv;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,25 +31,37 @@ public class RdvDao {
         return query.setFirstResult(0).setMaxResults(50).getResultList();
     }
     
+    public List<Rdv> GetListRdvByNumMedecin(int numMedecinTrait){
+        Query query =em.createNamedQuery("Rdv.findByNumMedecin",Rdv.class).setParameter("codeMedTrit", numMedecinTrait);
+        return query.setFirstResult(0).setMaxResults(50).getResultList();
+    }
     
-    public String AjRdv(Date date ,String typ , String Alert, String sonor,int pres,int Codpat) {
+    public String AjRdv(Date start_date ,String typ , String descpRDV,int pres,int Codpat,int CodMed,Date end_date) {
         
          Connection conn=myconn.getConnection();
-         String Err="true";
+         String Err="true",requete;
          int n = 0;
          try{
-             String requete = "insert into Rdv(dateRDV,typeRDV,AlerteRDV,effSonorRDV,presence,patient) values(?,?,?,?,?,?)";
+             if(Codpat==0)
+                 requete = "insert into Rdv(start_date,typeRDV,descpRDV,presence,num_medecin_trait,end_date,numRDV) values(?,?,?,?,?,?,?)";
+             else
+                 requete = "insert into Rdv(start_date,typeRDV,descpRDV,presence,num_medecin_trait,end_date,numRDV,num_patient) values(?,?,?,?,?,?,?,?)";
              try (PreparedStatement pstmt = conn.prepareStatement(requete)) {
                  
-                 pstmt.setDate(1,new java.sql.Date(date.getTime()));
+                 pstmt.setTimestamp(1,new java.sql.Timestamp(start_date.getTime()));
                  pstmt.setString(2,typ);
-                 pstmt.setString(3,Alert);
-                 pstmt.setString(4,sonor);
-                 pstmt.setInt(5,pres);
-                 pstmt.setInt(6,Codpat);
+                 pstmt.setString(3,descpRDV);
+                 pstmt.setInt(4,pres);
+                 pstmt.setInt(5,CodMed);
+                 pstmt.setTimestamp(6,new java.sql.Timestamp(end_date.getTime()));
+                 pstmt.setInt(7,new CabinetMedicalDao().GetCptParamByCode("CptRdv"));
+                 
+                 if(Codpat!=0)
+                 pstmt.setInt(8,Codpat);
                  
                  n=pstmt.executeUpdate();
                  pstmt.close();
+                 new CabinetMedicalDao().CptIncParamByCode("CptRdv");
              }
              
          }catch(SQLException EX){
@@ -74,7 +85,7 @@ public class RdvDao {
          int n = 0;
          try{
              try (Statement stm = conn.createStatement()) { 
-                 String query ="delete from Rdv where numRDV='"+id+"'";
+                 String query ="delete from Rdv where numRDV="+id;
                  n=stm.executeUpdate(query);
                  stm.close();
              }
@@ -94,22 +105,22 @@ public class RdvDao {
     
     }
      
-     public String UpdateRdv(String num_rdv,Date date ,String typ , String Alert, String sonor,int pres,int Codpat) {
+     public String UpdateRdv(int num_rdv,Date start_date ,String typ , String descpRDV,int pres,int Codpat,Date end_date) {
         
          Connection conn=myconn.getConnection();
          String Err="true";
          int n = 0;
          try{
-             String requete = "update Rdv set dateRdv=?,typeRdv=?,AlerteRdv=?,effSonorRdv=?,presence=?,patient=? where numRdv=?";
+             String requete = "update Rdv set start_date=?,typeRdv=?,descpRDV=?,presence=?,num_patient=?,end_date=? where numRdv=?";
              try (PreparedStatement pstmt = conn.prepareStatement(requete)) {
                  
-                 pstmt.setDate(1,new java.sql.Date(date.getTime()));
+                 pstmt.setTimestamp(1,new java.sql.Timestamp(start_date.getTime()));
                  pstmt.setString(2,typ);
-                 pstmt.setString(3,Alert);
-                 pstmt.setString(4,sonor);
-                 pstmt.setInt(5,pres);
-                 pstmt.setInt(6,Codpat);
-                 pstmt.setString(7,num_rdv);
+                 pstmt.setString(3,descpRDV);
+                 pstmt.setInt(4,pres);
+                 pstmt.setInt(5,Codpat);
+                 pstmt.setTimestamp(6,new java.sql.Timestamp(end_date.getTime()));
+                 pstmt.setInt(7,num_rdv);
                  
                  n=pstmt.executeUpdate();
                  pstmt.close();

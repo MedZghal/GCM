@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ActeMedicaux.findAll", query = "SELECT a FROM ActeMedicaux a"),
     @NamedQuery(name = "ActeMedicaux.findByNumActe", query = "SELECT a FROM ActeMedicaux a WHERE a.acteMedicauxPK.numActe = :numActe"),
     @NamedQuery(name = "ActeMedicaux.findByNumConsult", query = "SELECT a FROM ActeMedicaux a WHERE a.acteMedicauxPK.numConsult = :numConsult"),
+    @NamedQuery(name = "ActeMedicaux.findRembByNumConsult", query = "SELECT a FROM ActeMedicaux a WHERE a.acteMedicauxPK.numConsult = :numConsult and a.acte.typ='CNAM'"),
+    @NamedQuery(name = "ActeMedicaux.findNonRembByNumConsult", query = "SELECT a FROM ActeMedicaux a WHERE a.acteMedicauxPK.numConsult = :numConsult and a.acte.typ!='CNAM'"),
     @NamedQuery(name = "ActeMedicaux.findByDate", query = "SELECT a FROM ActeMedicaux a WHERE a.date = :date"),
     @NamedQuery(name = "ActeMedicaux.findByNbPrChg", query = "SELECT a FROM ActeMedicaux a WHERE a.nbPrChg = :nbPrChg")})
 public class ActeMedicaux implements Serializable {

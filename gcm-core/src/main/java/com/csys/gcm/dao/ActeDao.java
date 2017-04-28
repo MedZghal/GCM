@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  *
@@ -33,15 +34,43 @@ public class ActeDao {
         return query.setFirstResult(0).setMaxResults(50).getResultList();
     }
     
+    public int GetMaxActe(){
+        Query query =em.createNamedQuery("Acte.findMax",Acte.class);
+        List<Integer> elementList = query.getResultList();
+        return CollectionUtils.isEmpty(elementList ) ? null : elementList.get(0);
+    }
+    
+     public List<Acte> GetListActeNonRemborsable(){
+        Query query =em.createNamedQuery("Acte.findAllNonRemb",Acte.class);
+        return query.setFirstResult(0).setMaxResults(50).getResultList();
+    }
+    
+    public Acte GetActeNonRemborsablebyLibelle(String libelle){
+        Query query =em.createNamedQuery("Acte.findByLibelle",Acte.class).setParameter("libelle",libelle);
+         List<Acte> elementList = query.getResultList();
+        return CollectionUtils.isEmpty(elementList ) ? null : elementList.get(0);
+    }
+    
     public List<ActeMedicaux> GetListActeMedicaux(){
         Query query =em.createNamedQuery("ActeMedicaux.findAll",ActeMedicaux.class);
         return query.setFirstResult(0).setMaxResults(50).getResultList();
     }
+    
+     public List<ActeMedicaux> GetListActeMedicauxAllByNumConsult(int NumConsult){
+        Query query =em.createNamedQuery("ActeMedicaux.findByNumConsult",ActeMedicaux.class).setParameter("numConsult",NumConsult);
+        return query.setFirstResult(0).setMaxResults(50).getResultList();
+    }
+     
     public List<ActeMedicaux> GetListActeMedicauxByNumConsult(int NumConsult){
-        Query query =em.createNamedQuery("ActeMedicaux.findByNumConsult",ActeMedicaux.class).setParameter("numActe",NumConsult);
+        Query query =em.createNamedQuery("ActeMedicaux.findRembByNumConsult",ActeMedicaux.class).setParameter("numConsult",NumConsult);
         return query.setFirstResult(0).setMaxResults(50).getResultList();
     }
     
+    
+    public List<ActeMedicaux> GetListActeMedicauxNonRembByNumConsult(int NumConsult){
+        Query query =em.createNamedQuery("ActeMedicaux.findNonRembByNumConsult",ActeMedicaux.class).setParameter("numConsult",NumConsult);
+        return query.setFirstResult(0).setMaxResults(50).getResultList();
+    }
     
     public String AjActe(String lib ,int acord , String tiket_moder, String Mnt,String Descp,String Cot,String typ) {
         
@@ -163,7 +192,32 @@ public class ActeDao {
          return n>0 ;
     
     }
-      
+     
+       public boolean SuppActeMedicauxbyNum_Consult  (int num_consult ) {
+         Connection conn=myconn.getConnection();
+         int n = 0;
+         try{
+             try (Statement stm = conn.createStatement()) { 
+                 String query ="delete from ActeMedicaux where num_consult="+num_consult;
+                 n=stm.executeUpdate(query);
+                 stm.close();
+             }
+             
+         }catch(SQLException EX){
+             System.err.printf(EX.getMessage());
+            }finally{
+             if(conn!=null){
+                 try{
+                     conn.close();
+                 }catch(SQLException EX){
+                 }
+             }
+         }
+    
+         return n>0 ;
+    
+    }
+       
      public String UpdateActe(String num_acte ,String lib ,int acord , String tiket_moder, String Mnt,String Descp,String Cot,String Typ ) {
         
          Connection conn=myconn.getConnection();
@@ -231,6 +285,38 @@ public class ActeDao {
                  pstmt.setInt(3,num_acte);
                  pstmt.setInt(4,num_consult);
                  
+                 n=pstmt.executeUpdate();
+                 pstmt.close();
+                         }
+             
+             
+         }catch(SQLException EX){
+             System.err.printf(EX.getMessage());
+             Err=EX.getMessage()+"";
+            }finally{
+             if(conn!=null){
+                 try{
+                     conn.close();
+                 }catch(SQLException EX){
+                 }
+             }
+         }
+    
+         return Err ;
+    
+    }
+     
+      public String UpdateActeMedicauxbyNum_Consult(int num_consult_old,int num_consult_New) {
+        
+         Connection conn=myconn.getConnection();
+         String Err="true";
+         int n = 0;
+         try{
+             String requete = "update ActeMedicaux set num_consult=? where  num_consult=?";
+             try (PreparedStatement pstmt = conn.prepareStatement(requete)) {
+                
+                 pstmt.setInt(1,num_consult_New);
+                 pstmt.setInt(2,num_consult_old);
                  n=pstmt.executeUpdate();
                  pstmt.close();
                          }

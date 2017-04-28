@@ -8,7 +8,6 @@ package com.csys.gcm.model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -30,14 +29,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Utilisateur.findAll", query = "SELECT u FROM Utilisateur u"),
+    @NamedQuery(name = "Utilisateur.findMax", query = "SELECT MAX(u.codeMedTrit) FROM Utilisateur u"),
+    @NamedQuery(name = "Utilisateur.findMin", query = "SELECT MIN(u.codeMedTrit) FROM Utilisateur u"),
     @NamedQuery(name = "Utilisateur.findByUsername", query = "SELECT u FROM Utilisateur u WHERE u.username = :username"),
     @NamedQuery(name = "Utilisateur.findByPass", query = "SELECT u FROM Utilisateur u WHERE u.pass = :pass"),
     @NamedQuery(name = "Utilisateur.findByType", query = "SELECT u FROM Utilisateur u WHERE u.type = :type"),
-    @NamedQuery(name = "Utilisateur.findByCodeMedTrit", query = "SELECT u FROM Utilisateur u WHERE u.codeMedTrit = :codeMedTrit")})
+    @NamedQuery(name = "Utilisateur.findByCodeMedTrit", query = "SELECT u FROM Utilisateur u WHERE u.codeMedTrit = :codeMedTrit"),
+    @NamedQuery(name = "Utilisateur.findBySecretaire", query = "SELECT u FROM Utilisateur u WHERE u.secretaire = :secretaire")})
 public class Utilisateur implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codeMedTrit")
-    private Collection<Consultation> consultationCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -60,6 +59,11 @@ public class Utilisateur implements Serializable {
     @NotNull
     @Column(name = "code_Med_Trit")
     private int codeMedTrit;
+    @Size(max = 50)
+    @Column(name = "secretaire")
+    private String secretaire;
+    @OneToMany(mappedBy = "numMedcTrait")
+    private Collection<SalleAttente> salleAttenteCollection;
 
     public Utilisateur() {
     }
@@ -107,6 +111,23 @@ public class Utilisateur implements Serializable {
         this.codeMedTrit = codeMedTrit;
     }
 
+    public String getSecretaire() {
+        return secretaire;
+    }
+
+    public void setSecretaire(String secretaire) {
+        this.secretaire = secretaire;
+    }
+
+    @XmlTransient
+    public Collection<SalleAttente> getSalleAttenteCollection() {
+        return salleAttenteCollection;
+    }
+
+    public void setSalleAttenteCollection(Collection<SalleAttente> salleAttenteCollection) {
+        this.salleAttenteCollection = salleAttenteCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -130,15 +151,6 @@ public class Utilisateur implements Serializable {
     @Override
     public String toString() {
         return "com.csys.gcm.model.Utilisateur[ username=" + username + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Consultation> getConsultationCollection() {
-        return consultationCollection;
-    }
-
-    public void setConsultationCollection(Collection<Consultation> consultationCollection) {
-        this.consultationCollection = consultationCollection;
     }
     
 }
